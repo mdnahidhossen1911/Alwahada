@@ -1,3 +1,4 @@
+import 'package:alwahda/feature/home/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class MainBottomNavScreen extends StatefulWidget {
@@ -12,10 +13,18 @@ class MainBottomNavScreen extends StatefulWidget {
 class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
   int _currentIndex = 0;
 
+  final List<Widget> _screens = [
+    HomeScreen(),
+    HomeScreen(),
+    HomeScreen(),
+    HomeScreen(),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(toolbarHeight: 0),
+      appBar: AppBar(toolbarHeight: 0, forceMaterialTransparency: true),
+      body: IndexedStack(index: _currentIndex, children: _screens),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         type: BottomNavigationBarType.fixed,
@@ -24,16 +33,22 @@ class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
           setState(() {});
         },
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: 'Home'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_outlined),
+            activeIcon: Icon(Icons.home),
+            label: 'Home',
+          ),
           BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
           BottomNavigationBarItem(
-            icon: Icon(Icons.notifications),
+            icon: Icon(Icons.notifications_none),
+            activeIcon: Icon(Icons.notifications),
             label: 'Notification',
           ),
           BottomNavigationBarItem(
             icon: CircleAvatar(
               radius: 13.5,
-              backgroundColor: _currentIndex==3? Colors.black:Colors.transparent,
+              backgroundColor:
+                  _currentIndex == 3 ? Colors.black : Colors.transparent,
               child: CircleAvatar(
                 radius: 11.5,
                 backgroundColor: Colors.white,

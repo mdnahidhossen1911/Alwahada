@@ -14,18 +14,22 @@ class AlwahadaApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.white,
         appBarTheme: AppBarTheme(backgroundColor: Colors.white),
         colorSchemeSeed: Colors.blueGrey,
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: OutlinedButton.styleFrom(foregroundColor: Colors.grey),
+        ),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(foregroundColor: Colors.grey),
+        ),
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
           backgroundColor: Colors.white,
           selectedItemColor: Colors.black,
-          unselectedItemColor: Colors.black54,
+          unselectedItemColor: Colors.grey.shade700,
           selectedLabelStyle: GoogleFonts.getFont(
             'Inter',
             fontWeight: FontWeight.w600,
             fontSize: 12,
           ),
-          unselectedLabelStyle: GoogleFonts.getFont(
-            'Inter',
-          ),
+          unselectedLabelStyle: GoogleFonts.getFont('Inter'),
         ),
       ),
       initialRoute: '/',
