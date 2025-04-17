@@ -1,4 +1,6 @@
 import 'package:alwahda/feature/home/screens/home_screen.dart';
+import 'package:alwahda/feature/profile/screens/profile_screen.dart';
+import 'package:alwahda/feature/search/screens/search_screen.dart';
 import 'package:flutter/material.dart';
 
 class MainBottomNavScreen extends StatefulWidget {
@@ -15,9 +17,9 @@ class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
 
   final List<Widget> _screens = [
     HomeScreen(),
+    SearchScreen(),
     HomeScreen(),
-    HomeScreen(),
-    HomeScreen(),
+    ProfileScreen(),
   ];
 
   @override

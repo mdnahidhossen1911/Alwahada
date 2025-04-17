@@ -13,7 +13,7 @@ class HomeShareKnowlageBar extends StatelessWidget {
     return Container(
       height: 68,
       padding: EdgeInsets.all(13),
-      margin: EdgeInsets.only(top: 1,bottom: 3),
+      margin: EdgeInsets.only(top: 1,bottom: 5),
       color: Colors.white,
       child: GestureDetector(
         onTap: ontab,

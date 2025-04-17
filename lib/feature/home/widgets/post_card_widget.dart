@@ -17,7 +17,7 @@ class _PostCardWidgetState extends State<PostCardWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 3),
+      margin: EdgeInsets.only(bottom: 5),
       padding: EdgeInsets.all(14),
       color: Colors.white,
       child: Column(
