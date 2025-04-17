@@ -1,11 +1,19 @@
 import 'package:alwahda/app/assets_path.dart';
+import 'package:alwahda/feature/home/widgets/show_bottom_sheet_share_window.dart';
+import 'package:alwahda/feature/home/widgets/show_bottom_slider_comment_bar.dart';
 import 'package:alwahda/feature/post/screens/post_details_screen.dart';
+import 'package:alwahda/feature/post/widget/like_comment_share_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class PostCardWidget extends StatelessWidget {
+class PostCardWidget extends StatefulWidget {
   const PostCardWidget({super.key});
 
+  @override
+  State<PostCardWidget> createState() => _PostCardWidgetState();
+}
+
+class _PostCardWidgetState extends State<PostCardWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -64,7 +72,11 @@ class PostCardWidget extends StatelessWidget {
           SizedBox(height: 4),
           GestureDetector(
             onTap: () {
-              Navigator.pushNamed(context, PostDetailsScreen.name,arguments: false);
+              Navigator.pushNamed(
+                context,
+                PostDetailsScreen.name,
+                arguments: false,
+              );
             },
             child: Column(
               children: [
@@ -113,62 +125,40 @@ class PostCardWidget extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  TextButton(
-                    onPressed: () {},
-                    child: Row(
-                      children: [
-                        Icon(Icons.favorite_border, color: Colors.black),
-                        SizedBox(width: 8),
-                        Text(
-                          'Like',
-                          style: GoogleFonts.getFont(
-                            'Inter',
-                            color: Colors.black,
-                          ),
-                        ),
-                      ],
-                    ),
+                  LikeCommentShareButton(
+                    onTab: () {},
+                    type: 'Like',
+                    icon: Icon(Icons.favorite_border, color: Colors.black),
                   ),
-                  SizedBox(width: 16),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, PostDetailsScreen.name,arguments: true);
+                  SizedBox(width: 24),
+                  LikeCommentShareButton(
+                    onTab: () {
+                      Navigator.pushNamed(
+                        context,
+                        PostDetailsScreen.name,
+                        arguments: true,
+                      );
                     },
-                    child: Row(
-                      children: [
-                        Icon(Icons.mode_comment_outlined, color: Colors.black),
-                        SizedBox(width: 8),
-                        Text(
-                          'Comment',
-                          style: GoogleFonts.getFont(
-                            'Inter',
-                            color: Colors.black,
-                          ),
-                        ),
-                      ],
-                    ),
+                    type: 'Comment',
+                    icon: Icon(Icons.messenger_outline, color: Colors.black),
                   ),
                 ],
               ),
-              TextButton(
-                onPressed: () {},
-                child: Row(
-                  children: [
-                    Icon(Icons.share, color: Colors.black),
-                    SizedBox(width: 8),
-                    Text(
-                      'Share',
-                      style: GoogleFonts.getFont('Inter', color: Colors.black),
-                    ),
-                  ],
-                ),
+              LikeCommentShareButton(
+                onTab: () {
+                  showBottomSheetShareWindow(context);
+                },
+                type: 'Share',
+                icon: Icon(Icons.share, color: Colors.black),
               ),
             ],
           ),
           Divider(height: 1, color: Colors.grey.shade100),
           SizedBox(height: 14),
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              showBottomSheetCommentBar(context);
+            },
             child: Container(
               height: 40,
               padding: EdgeInsets.symmetric(horizontal: 16),
@@ -197,4 +187,5 @@ class PostCardWidget extends StatelessWidget {
       ),
     );
   }
+
 }
