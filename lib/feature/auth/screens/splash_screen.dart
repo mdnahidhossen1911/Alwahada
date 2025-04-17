@@ -1,4 +1,5 @@
 import 'package:alwahda/feature/auth/screens/sign_in_with_google_screen.dart';
+import 'package:alwahda/feature/common/screens/main_bottom_nav_screen.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -23,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> moveNextScreen()async{
    await Future.delayed(Duration(seconds: 4));
-   Navigator.popAndPushNamed(context, SignInWithGoogleScreen.name);
+   Navigator.popAndPushNamed(context, MainBottomNavScreen.name);
 
   }
 

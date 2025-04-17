@@ -17,7 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: buildAppBar(),
       body: ColoredBox(
-        color: Color(0x24aeaeae),
+        color: Color(0x35aeaeae),
         child: ListView(
           children: [
             HomeShareKnowlageBar(

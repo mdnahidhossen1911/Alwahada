@@ -62,30 +62,39 @@ class PostCardWidget extends StatelessWidget {
             ],
           ),
           SizedBox(height: 4),
-          Text(
-            'Al-Aqsa Mosque is one of the holiest sites in Islam.',
-            style: GoogleFonts.getFont(
-              'Inter',
-              fontSize: 15,
-              fontWeight: FontWeight.bold,
-              height: 1.3,
-            ),
-          ),
-          SizedBox(height: 8),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: Image.network(
-              'https://muslimhands.org.uk/_ui/images/d58861348753.png',
-            ),
-          ),
-          SizedBox(height: 12),
-          Text(
-            'Al-Aqsa Mosque is one of the holiest sites in Islam, located in the Old City of Jerusalem. It is part of the larger Al-Haram al-Sharif (the Noble Sanctuary), which also includes the Dome of the Rock.',
-            style: GoogleFonts.getFont(
-              'Inter',
-              fontSize: 14,
-              height: 1.3,
-              color: Colors.grey.shade900,
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, PostDetailsScreen.name,arguments: false);
+            },
+            child: Column(
+              children: [
+                Text(
+                  'Al-Aqsa Mosque is one of the holiest sites in Islam.',
+                  style: GoogleFonts.getFont(
+                    'Inter',
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    height: 1.3,
+                  ),
+                ),
+                SizedBox(height: 8),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.network(
+                    'https://muslimhands.org.uk/_ui/images/d58861348753.png',
+                  ),
+                ),
+                SizedBox(height: 12),
+                Text(
+                  'Al-Aqsa Mosque is one of the holiest sites in Islam, located in the Old City of Jerusalem. It is part of the larger Al-Haram al-Sharif (the Noble Sanctuary), which also includes the Dome of the Rock.',
+                  style: GoogleFonts.getFont(
+                    'Inter',
+                    fontSize: 14,
+                    height: 1.3,
+                    color: Colors.grey.shade900,
+                  ),
+                ),
+              ],
             ),
           ),
           SizedBox(height: 12),
@@ -123,7 +132,7 @@ class PostCardWidget extends StatelessWidget {
                   SizedBox(width: 16),
                   TextButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, PostDetailsScreen.name);
+                      Navigator.pushNamed(context, PostDetailsScreen.name,arguments: true);
                     },
                     child: Row(
                       children: [

@@ -17,7 +17,8 @@ class AppRoutes {
     }else if (settings.name == NewPostScreen.name) {
       screen = const NewPostScreen();
     }else if (settings.name == PostDetailsScreen.name) {
-      screen = const PostDetailsScreen();
+      bool commentScrolling = settings.arguments as bool;
+      screen =  PostDetailsScreen(commentScrolling: commentScrolling ,);
     }
     return MaterialPageRoute(
       builder: (context) {
