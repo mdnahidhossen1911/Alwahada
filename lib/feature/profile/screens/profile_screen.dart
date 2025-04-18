@@ -1,5 +1,8 @@
+import 'dart:math' as math;
+
 import 'package:alwahda/feature/search/screens/search_people_section.dart';
 import 'package:alwahda/feature/search/screens/search_post_section.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -24,6 +27,102 @@ class _ProfileScreenState extends State<ProfileScreen>
   void dispose() {
     _tabController.dispose();
     super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Profile',
+          style: GoogleFonts.inter(
+            fontSize: 20,
+            fontWeight: FontWeight.w700,
+            color: Colors.black,
+          ),
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: Transform.rotate(
+                  angle: 180 * math.pi / 180,
+                child: const Icon(Icons.menu_open_sharp, color: Colors.black)),
+          ),
+        ],
+        forceMaterialTransparency: true,
+      ),
+      body: NestedScrollView(
+        physics: BouncingScrollPhysics(),
+        headerSliverBuilder: (_, __) {
+          return [
+            SliverToBoxAdapter(child: _buildProfileHeader()),
+            SliverAppBar(
+              pinned: true,
+              floating: true,
+              toolbarHeight: 0,
+              backgroundColor: Colors.white,
+              surfaceTintColor: Colors.white,
+              forceMaterialTransparency: false,
+              bottom: TabBar(
+                controller: _tabController,
+                indicatorColor: Colors.black,
+                indicatorSize: TabBarIndicatorSize.tab,
+                dividerColor: Colors.grey.shade200,
+                overlayColor: MaterialStateProperty.all<Color>(
+                  Colors.transparent,
+                ),
+                labelColor: Colors.black,
+                unselectedLabelColor: Colors.grey,
+                tabs: const [Tab(text: 'Post'), Tab(text: 'About')],
+              ),
+            ),
+          ];
+        },
+        body: TabBarView(
+          controller: _tabController,
+          children:  [
+            SearchPostSection(),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                spacing: 8,
+                children: [
+                  SizedBox(height: 12),
+                  Row(
+                    children: [
+                      Icon(Icons.calendar_month,color: Colors.grey.shade800,),
+                      SizedBox(width: 8),
+                      Text('Joined 23 April 2025')
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Icon(Icons.work,color: Colors.grey.shade800),
+                      SizedBox(width: 8),
+                      Text('Founder of AL Wahada')
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Icon(Icons.school,color: Colors.grey.shade800),
+                      SizedBox(width: 8),
+                      Text('Computer Science andTechnology')
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Icon(Icons.location_history_rounded,color: Colors.grey.shade800),
+                      SizedBox(width: 8),
+                      Text('Santosh, Tangail 1902')
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   Widget _buildProfileHeader() {
@@ -83,7 +182,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                             ),
                             TextSpan(
                               text:
-                              " Self-motivated problem solver with experience in Android development using GitHub and....",
+                                  " Self-motivated problem solver with experience in Android development using GitHub and....",
                             ),
                           ],
                         ),
@@ -103,7 +202,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                   radius: 50,
                   backgroundColor: Colors.blue.shade100,
                   backgroundImage: NetworkImage(
-                    'https://scontent.fbzl5-1.fna.fbcdn.net/v/t39.30808-6/461430012_122191430114074736_7096328490961749264_n.jpg',
+                    'https://scontent.fbzl5-1.fna.fbcdn.net/v/t39.30808-6/461430012_122191430114074736_7096328490961749264_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=bFZJseYIIf4Q7kNvwG5r7Lf&_nc_oc=AdmHujnNWUOY_nhKr4K1upS9_OMFgQ_PHQGubuiqQhjnFLGXuP2XOrw9a_6os9274VI&_nc_zt=23&_nc_ht=scontent.fbzl5-1.fna&_nc_gid=azPEIbcoXmH6bysSntJdKg&oh=00_AfFhAYNyg1ajg_rRWdyWK54ukJOsHVhbgczHCx0o74dp7g&oe=6808466B',
                   ),
                 ),
               ),
@@ -133,72 +232,13 @@ class _ProfileScreenState extends State<ProfileScreen>
                   ),
                 ),
               ),
-              const SizedBox(width: 12),
-              Icon(Icons.more_horiz),
             ],
           ),
         ),
-        const SizedBox(height: 12),
+        SizedBox(height: 16),
+        Divider(height: 3, thickness: 3, color: Color(0x35aeaeae)),
+        SizedBox(height: 4),
       ],
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: NestedScrollView(
-        headerSliverBuilder: (_, __) {
-          return [
-            SliverAppBar(
-              pinned: true,
-              floating: false,
-              expandedHeight: 480,
-              backgroundColor: Colors.white,
-              foregroundColor: Colors.white,
-              forceMaterialTransparency: false,
-              title: Text(
-                'Profile',
-                style: GoogleFonts.inter(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.black,
-                ),
-              ),
-              actions: [
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.read_more, color: Colors.black),
-                ),
-              ],
-              flexibleSpace: FlexibleSpaceBar(
-                background: Column(
-                  children: [
-                    const SizedBox(height: 60), // extra spacing
-                    _buildProfileHeader(),
-                  ],
-                ),
-              ),
-              bottom: TabBar(
-                controller: _tabController,
-                indicatorColor: Colors.black,
-                labelColor: Colors.black,
-                unselectedLabelColor: Colors.grey,
-                tabs: const [
-                  Tab(text: 'Post'),
-                  Tab(text: 'About'),
-                ],
-              ),
-            ),
-          ];
-        },
-        body: TabBarView(
-          controller: _tabController,
-          children: const [
-            SearchPostSection(),
-            SearchPeopleSection(),
-          ],
-        ),
-      ),
     );
   }
 }
