@@ -1,8 +1,6 @@
 import 'dart:math' as math;
-
-import 'package:alwahda/feature/search/screens/search_people_section.dart';
 import 'package:alwahda/feature/search/screens/search_post_section.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:alwahda/feature/setting/screens/setting_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -43,7 +41,9 @@ class _ProfileScreenState extends State<ProfileScreen>
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, SettingScreen.name);
+            },
             icon: Transform.rotate(
                   angle: 180 * math.pi / 180,
                 child: const Icon(Icons.menu_open_sharp, color: Colors.black)),
@@ -68,7 +68,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                 indicatorColor: Colors.black,
                 indicatorSize: TabBarIndicatorSize.tab,
                 dividerColor: Colors.grey.shade200,
-                overlayColor: MaterialStateProperty.all<Color>(
+                overlayColor: WidgetStateProperty.all<Color>(
                   Colors.transparent,
                 ),
                 labelColor: Colors.black,
