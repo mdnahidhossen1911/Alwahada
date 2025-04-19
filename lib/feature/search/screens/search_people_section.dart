@@ -16,7 +16,7 @@ class _SearchPeopleSectionState extends State<SearchPeopleSection> {
         padding: EdgeInsets.symmetric(vertical: 8),
         itemBuilder: (context, index) {
         return ListTile(
-          contentPadding: EdgeInsets.symmetric(vertical: 4,horizontal: 14,),
+          contentPadding: EdgeInsets.symmetric(vertical: 2,horizontal: 14,),
           leading: CircleAvatar(
             backgroundImage: AssetImage(AssetsPath.manAvater),
             backgroundColor: Colors.grey.shade100,
@@ -29,6 +29,7 @@ class _SearchPeopleSectionState extends State<SearchPeopleSection> {
             elevation: 0,
             backgroundColor: Colors.grey.shade100,
             foregroundColor: Colors.grey,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           ), child: Text('Following',style: TextStyle(color: Colors.black,),),
           ),
         );

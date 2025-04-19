@@ -24,6 +24,7 @@ class AlwahadaApp extends StatelessWidget {
           backgroundColor: Colors.white,
           selectedItemColor: Colors.black,
           unselectedItemColor: Colors.grey.shade700,
+          enableFeedback: false,
           selectedLabelStyle: GoogleFonts.getFont(
             'Inter',
             fontWeight: FontWeight.w600,

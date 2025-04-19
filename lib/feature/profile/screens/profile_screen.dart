@@ -1,4 +1,8 @@
 import 'dart:math' as math;
+
+import 'package:alwahda/app/assets_path.dart';
+import 'package:alwahda/feature/profile/screens/followers_list_screen.dart';
+import 'package:alwahda/feature/profile/screens/following_list_screen.dart';
 import 'package:alwahda/feature/search/screens/search_post_section.dart';
 import 'package:alwahda/feature/setting/screens/setting_screen.dart';
 import 'package:flutter/material.dart';
@@ -45,8 +49,9 @@ class _ProfileScreenState extends State<ProfileScreen>
               Navigator.pushNamed(context, SettingScreen.name);
             },
             icon: Transform.rotate(
-                  angle: 180 * math.pi / 180,
-                child: const Icon(Icons.menu_open_sharp, color: Colors.black)),
+              angle: 180 * math.pi / 180,
+              child: const Icon(Icons.menu_open_sharp, color: Colors.black),
+            ),
           ),
         ],
         forceMaterialTransparency: true,
@@ -80,7 +85,7 @@ class _ProfileScreenState extends State<ProfileScreen>
         },
         body: TabBarView(
           controller: _tabController,
-          children:  [
+          children: [
             SearchPostSection(),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
@@ -90,30 +95,33 @@ class _ProfileScreenState extends State<ProfileScreen>
                   SizedBox(height: 12),
                   Row(
                     children: [
-                      Icon(Icons.calendar_month,color: Colors.grey.shade800,),
+                      Icon(Icons.calendar_month, color: Colors.grey.shade800),
                       SizedBox(width: 8),
-                      Text('Joined 23 April 2025')
+                      Text('Joined 23 April 2025'),
                     ],
                   ),
                   Row(
                     children: [
-                      Icon(Icons.work,color: Colors.grey.shade800),
+                      Icon(Icons.work, color: Colors.grey.shade800),
                       SizedBox(width: 8),
-                      Text('Founder of AL Wahada')
+                      Text('Founder of AL Wahada'),
                     ],
                   ),
                   Row(
                     children: [
-                      Icon(Icons.school,color: Colors.grey.shade800),
+                      Icon(Icons.school, color: Colors.grey.shade800),
                       SizedBox(width: 8),
-                      Text('Computer Science andTechnology')
+                      Text('Computer Science andTechnology'),
                     ],
                   ),
                   Row(
                     children: [
-                      Icon(Icons.location_history_rounded,color: Colors.grey.shade800),
+                      Icon(
+                        Icons.location_history_rounded,
+                        color: Colors.grey.shade800,
+                      ),
                       SizedBox(width: 8),
-                      Text('Santosh, Tangail 1902')
+                      Text('Santosh, Tangail 1902'),
                     ],
                   ),
                 ],
@@ -146,11 +154,22 @@ class _ProfileScreenState extends State<ProfileScreen>
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'MD Nahid Hossen',
-                        style: GoogleFonts.inter(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
+                      RichText(
+                        text: TextSpan(
+                          style: GoogleFonts.inter(
+                            fontSize: 17,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w700,
+                          ),
+                          children: [
+                            TextSpan(text: "MD Nahid Hossen  "),
+                            WidgetSpan(
+                              child: Image.asset(
+                                AssetsPath.verifyWriter,
+                                width: 20,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       Text(
@@ -161,12 +180,51 @@ class _ProfileScreenState extends State<ProfileScreen>
                         ),
                       ),
                       SizedBox(height: 6),
-                      Text(
-                        '1K followers • 500 following',
-                        style: TextStyle(
-                          fontSize: 12.5,
-                          color: Colors.grey.shade700,
-                        ),
+                      Row(
+                        children: [
+                          for (int i = 0; i < 2; i++)
+                            Align(
+                              widthFactor: 0.7,
+                              child: CircleAvatar(
+                                radius: 9,
+                                backgroundColor: Colors.white,
+                                child: CircleAvatar(
+                                  radius: 8,
+                                  backgroundColor: Colors.grey.shade100,
+                                  backgroundImage: NetworkImage(
+                                    'https://scontent.fbzl5-1.fna.fbcdn.net/v/t39.30808-1/488259833_122221468874074736_6951742490121162663_n.jpg?stp=cp0_dst-jpg_s40x40_tt6&_nc_cat=110&ccb=1-7&_nc_sid=1d2534&_nc_ohc=nCewAkcCWCMQ7kNvwFGMobO&_nc_oc=Adk8b_wgMCQNaUYXzCBjzCUWHVeyQ-b_s9cYmsq9tNSGiqbw-Mok3xjWIddRM19pVNE&_nc_zt=24&_nc_ht=scontent.fbzl5-1.fna&_nc_gid=oaXZS5vp3mdsIIAU-JkWQg&oh=00_AfFwWMR6h554DK73PzFD4a-mu2MEf55e1-6MvKIjK54XvA&oe=68091E50',
+                                  ),
+                                ),
+                              ),
+                            ),
+                          SizedBox(width: 8),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(context, FollowersListScreen.name);
+                            },
+                            child: Text(
+                              '1K followers •',
+                              style: TextStyle(
+                                fontSize: 12.5,
+                                color: Colors.grey.shade700,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(context, FollowingListScreen.name);
+                            },
+                            child: Text(
+                              ' 500 following',
+                              style: TextStyle(
+                                fontSize: 12.5,
+                                color: Colors.grey.shade700,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                       SizedBox(height: 4),
                       RichText(
