@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:alwahda/app/assets_path.dart';
+import 'package:alwahda/feature/profile/screens/edit_profile_screen.dart';
 import 'package:alwahda/feature/profile/screens/followers_list_screen.dart';
 import 'package:alwahda/feature/profile/screens/following_list_screen.dart';
 import 'package:alwahda/feature/search/screens/search_post_section.dart';
@@ -274,7 +275,9 @@ class _ProfileScreenState extends State<ProfileScreen>
             children: [
               Expanded(
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, EditProfileScreen.name);
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.grey.shade100,
                     foregroundColor: Colors.grey,
