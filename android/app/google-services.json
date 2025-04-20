@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "867083153504",
+    "project_id": "alwahda-300d2",
+    "storage_bucket": "alwahda-300d2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:867083153504:android:a814775b73558f0fe55305",
+        "android_client_info": {
+          "package_name": "com.mdnahidhossen.alwahda"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdzWUwbi8OZE-KiEiB_0astdHrjmvm0WE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

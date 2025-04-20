@@ -1,5 +1,7 @@
 import 'package:alwahda/app/app_routes.dart';
+import 'package:alwahda/app/controller_binding.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AlwahadaApp extends StatelessWidget {
@@ -7,9 +9,10 @@ class AlwahadaApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Al Wahada',
       debugShowCheckedModeBanner: false,
+      initialBinding: ControllerBingder(),
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
         appBarTheme: AppBarTheme(backgroundColor: Colors.white),

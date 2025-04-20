@@ -1,5 +1,5 @@
-import 'package:alwahda/feature/auth/screens/sign_in_with_google_screen.dart';
-import 'package:alwahda/feature/auth/screens/splash_screen.dart';
+import 'package:alwahda/feature/auth/ui/screens/sign_in_with_google_screen.dart';
+import 'package:alwahda/feature/auth/ui/screens/splash_screen.dart';
 import 'package:alwahda/feature/common/screens/main_bottom_nav_screen.dart';
 import 'package:alwahda/feature/post/screens/new_post_screen.dart';
 import 'package:alwahda/feature/post/screens/post_details_screen.dart';

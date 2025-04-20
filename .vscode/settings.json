@@ -1,0 +1,10 @@
+{
+    "dart.flutterGenerateLocalizationsOnSave": "never",
+    "dart.flutterHotReloadOnSave": "all",
+    "dart.previewHotReloadOnSaveWatcher": true,
+    "dart.hotReloadOnSave": "all",
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 500,
+    "dart.previewFlutterUiGuides": true,
+    "dart.previewFlutterUiGuidesCustomTracking": true
+}

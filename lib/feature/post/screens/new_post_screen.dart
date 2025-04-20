@@ -52,7 +52,6 @@ class _NewPostScreenState extends State<NewPostScreen> {
                           ),
                         ),
                         onChanged: (value) {
-                          int tlenth = value.length;
                           setState(() {});
                         },
                       ),

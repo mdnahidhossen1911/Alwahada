@@ -1,6 +1,8 @@
 import 'package:alwahda/app/assets_path.dart';
+import 'package:alwahda/feature/auth/ui/controller/google_sign_in_request_controller.dart';
 import 'package:alwahda/feature/common/screens/main_bottom_nav_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SignInWithGoogleScreen extends StatefulWidget {
@@ -31,7 +33,7 @@ class _SignInWithGoogleScreenState extends State<SignInWithGoogleScreen> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(30),
+              padding: const EdgeInsets.all(16),
               child: Column(
                 children: [
                   Text(
@@ -46,6 +48,7 @@ class _SignInWithGoogleScreenState extends State<SignInWithGoogleScreen> {
                   ),
                   SizedBox(height: 24),
                   _buildSignInButton(),
+                  SizedBox(height: 24),
                 ],
               ),
             ),
@@ -57,8 +60,12 @@ class _SignInWithGoogleScreenState extends State<SignInWithGoogleScreen> {
 
   OutlinedButton _buildSignInButton() {
     return OutlinedButton(
-      onPressed: () {
-        Navigator.popAndPushNamed(context, MainBottomNavScreen.name);
+      onPressed: () async {
+        bool isSuccess =
+            await Get.find<GoogleSignInRequestController>().signIn();
+        if (isSuccess) {
+          Navigator.popAndPushNamed(context, MainBottomNavScreen.name);
+        }
       },
       style: OutlinedButton.styleFrom(
         fixedSize: Size(double.maxFinite, 55),

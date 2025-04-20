@@ -1,8 +1,10 @@
+import 'package:alwahda/feature/auth/ui/controller/auth_controller.dart';
 import 'package:alwahda/feature/home/screens/home_screen.dart';
 import 'package:alwahda/feature/notification/screens/notification_screen.dart';
 import 'package:alwahda/feature/profile/screens/profile_screen.dart';
 import 'package:alwahda/feature/search/screens/search_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class MainBottomNavScreen extends StatefulWidget {
   const MainBottomNavScreen({super.key});
@@ -16,12 +18,24 @@ class MainBottomNavScreen extends StatefulWidget {
 class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
   int _currentIndex = 0;
 
+  String? image;
+
   final List<Widget> _screens = [
     HomeScreen(),
     SearchScreen(),
     NotificationScreen(),
     ProfileScreen(),
   ];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    image = Get.find<AuthController>().userModel?.midImage;
+    print(image);
+
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -57,8 +71,9 @@ class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
                 backgroundColor: Colors.white,
                 child: CircleAvatar(
                   radius: 9.5,
+                  backgroundColor: Colors.grey.shade100,
                   backgroundImage: NetworkImage(
-                    'https://scontent.fbzl5-1.fna.fbcdn.net/v/t39.30808-6/488259833_122221468874074736_6951742490121162663_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=4TWTN7ofNQsQ7kNvwGWV08C&_nc_oc=AdlQ9qlZ9rjPBWWrFMvjcMn14hdWE7iWLZXTWLYQaPK-iGX-_bxfK-Qq295s8ZmE5rs&_nc_zt=23&_nc_ht=scontent.fbzl5-1.fna&_nc_gid=3KzZxDxJCX42nwzaf5QbNw&oh=00_AfHRmsd8pQ0ObWGrfsI43ED4Z09nIToFS3FyFYVYrELGJg&oe=68052B2B',
+                    'http://192.168.0.102/al_wahada/$image',
                   ),
                 ),
               ),

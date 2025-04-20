@@ -1,12 +1,15 @@
 import 'dart:math' as math;
 
 import 'package:alwahda/app/assets_path.dart';
+import 'package:alwahda/feature/auth/data/model/sign_in_user_model.dart';
+import 'package:alwahda/feature/auth/ui/controller/auth_controller.dart';
 import 'package:alwahda/feature/profile/screens/edit_profile_screen.dart';
 import 'package:alwahda/feature/profile/screens/followers_list_screen.dart';
 import 'package:alwahda/feature/profile/screens/following_list_screen.dart';
 import 'package:alwahda/feature/search/screens/search_post_section.dart';
 import 'package:alwahda/feature/setting/screens/setting_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -20,10 +23,13 @@ class _ProfileScreenState extends State<ProfileScreen>
     with TickerProviderStateMixin {
   late TabController _tabController;
 
+  SignInUserModel? userModel;
+
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
+    userModel = Get.find<AuthController>().userModel;
   }
 
   @override
@@ -163,7 +169,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                             fontWeight: FontWeight.w700,
                           ),
                           children: [
-                            TextSpan(text: "MD Nahid Hossen  "),
+                            TextSpan(text: "${userModel?.fullName}  "),
                             WidgetSpan(
                               child: Image.asset(
                                 AssetsPath.verifyWriter,
@@ -174,7 +180,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                         ),
                       ),
                       Text(
-                        '@mdnahidhossen',
+                        '@${userModel?.uid}',
                         style: GoogleFonts.inter(
                           fontSize: 12,
                           color: Colors.grey,
@@ -259,9 +265,9 @@ class _ProfileScreenState extends State<ProfileScreen>
                 backgroundColor: Colors.white,
                 child: CircleAvatar(
                   radius: 50,
-                  backgroundColor: Colors.blue.shade100,
+                  backgroundColor: Colors.grey.shade100,
                   backgroundImage: NetworkImage(
-                    'https://scontent.fbzl5-1.fna.fbcdn.net/v/t39.30808-6/461430012_122191430114074736_7096328490961749264_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=bFZJseYIIf4Q7kNvwG5r7Lf&_nc_oc=AdmHujnNWUOY_nhKr4K1upS9_OMFgQ_PHQGubuiqQhjnFLGXuP2XOrw9a_6os9274VI&_nc_zt=23&_nc_ht=scontent.fbzl5-1.fna&_nc_gid=azPEIbcoXmH6bysSntJdKg&oh=00_AfFhAYNyg1ajg_rRWdyWK54ukJOsHVhbgczHCx0o74dp7g&oe=6808466B',
+                    'http://192.168.0.102/al_wahada/${userModel?.highImage}',
                   ),
                 ),
               ),

@@ -1,7 +1,9 @@
-import 'package:alwahda/feature/auth/screens/sign_in_with_google_screen.dart';
+import 'package:alwahda/feature/auth/ui/controller/auth_controller.dart';
+import 'package:alwahda/feature/auth/ui/screens/sign_in_with_google_screen.dart';
 import 'package:alwahda/feature/common/screens/main_bottom_nav_screen.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -23,10 +25,15 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> moveNextScreen()async{
-   await Future.delayed(Duration(seconds: 4));
-   Navigator.popAndPushNamed(context, MainBottomNavScreen.name);
+    bool isLogin = await Get.find<AuthController>().islogIn();
+    await Future.delayed(Duration(seconds: 4));
+    if(isLogin){
+         Navigator.popAndPushNamed(context, MainBottomNavScreen.name);
+    }else
+   Navigator.popAndPushNamed(context, SignInWithGoogleScreen.name);
 
   }
+
 
   @override
   Widget build(BuildContext context) {
