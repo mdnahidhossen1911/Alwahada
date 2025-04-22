@@ -1,13 +1,16 @@
 import 'package:alwahda/app/assets_path.dart';
-import 'package:alwahda/feature/home/widgets/show_bottom_sheet_share_window.dart';
-import 'package:alwahda/feature/home/widgets/show_bottom_slider_comment_bar.dart';
+import 'package:alwahda/feature/home/data/model/post_model.dart';
+import 'package:alwahda/feature/home/ui/widgets/show_bottom_sheet_share_window.dart';
+import 'package:alwahda/feature/home/ui/widgets/show_bottom_slider_comment_bar.dart';
 import 'package:alwahda/feature/post/screens/post_details_screen.dart';
 import 'package:alwahda/feature/post/widget/like_comment_share_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PostCardWidget extends StatefulWidget {
-  const PostCardWidget({super.key});
+  const PostCardWidget({super.key, this.posts});
+
+  final Posts? posts;
 
   @override
   State<PostCardWidget> createState() => _PostCardWidgetState();
@@ -45,14 +48,14 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Md Nahid Hossen',
+                      widget.posts?.fullName??'',
                       style: GoogleFonts.getFont(
                         'Inter',
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                     Text(
-                      '23 sep 2024',
+                      widget.posts?.createdAt??'',
                       style: GoogleFonts.getFont(
                         'Inter',
                         fontSize: 12,
@@ -79,9 +82,10 @@ class _PostCardWidgetState extends State<PostCardWidget> {
               );
             },
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Al-Aqsa Mosque is one of the holiest sites in Islam.',
+                  widget.posts?.title??"",
                   style: GoogleFonts.getFont(
                     'Inter',
                     fontSize: 15,
@@ -89,16 +93,21 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                     height: 1.3,
                   ),
                 ),
-                SizedBox(height: 8),
+                if(widget.posts?.image != '')
+                  SizedBox(height: 8),
+                if(widget.posts?.image != '')
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: Image.network(
-                    'https://muslimhands.org.uk/_ui/images/d58861348753.png',
+                    'http://192.168.0.102/al_wahada/${widget.posts?.image}',
                   ),
                 ),
-                SizedBox(height: 12),
+                if(widget.posts?.image != '')
+                  SizedBox(height: 12),
                 Text(
-                  'Al-Aqsa Mosque is one of the holiest sites in Islam, located in the Old City of Jerusalem. It is part of the larger Al-Haram al-Sharif (the Noble Sanctuary), which also includes the Dome of the Rock.',
+                  widget.posts?.content??"",
+                  maxLines: 4,
+                  overflow: TextOverflow.ellipsis,
                   style: GoogleFonts.getFont(
                     'Inter',
                     fontSize: 14,
@@ -111,7 +120,7 @@ class _PostCardWidgetState extends State<PostCardWidget> {
           ),
           SizedBox(height: 12),
           Text(
-            '1 Like . 1 Comment . 1 Share',
+            '${widget.posts?.totalLikes??0} Like . ${widget.posts?.totalComments??0} Comment . ${widget.posts?.totalComments??0} Share',
             style: GoogleFonts.getFont(
               'Inter',
               fontSize: 12,
@@ -128,7 +137,9 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                   LikeCommentShareButton(
                     onTab: () {},
                     type: 'Like',
-                    icon: Icon(Icons.favorite_border, color: Colors.black),
+                    icon: widget.posts?.isLiked ==true?
+                    Icon(Icons.favorite, color: Colors.red):
+                    Icon(Icons.favorite_border, color: Colors.black),
                   ),
                   SizedBox(width: 24),
                   LikeCommentShareButton(

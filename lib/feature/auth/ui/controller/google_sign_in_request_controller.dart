@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:alwahda/app/assets_path.dart';
-import 'package:alwahda/app/core/network_caller/network_caller.dart';
+import 'package:alwahda/core/network_caller/network_caller.dart';
 import 'package:alwahda/feature/auth/data/model/sign_in_user_model.dart';
 import 'package:alwahda/feature/auth/ui/controller/auth_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -23,7 +23,7 @@ class GoogleSignInRequestController extends GetxController{
       List<int> imageBytes = bytes.buffer.asUint8List();
       String base64Image = base64Encode(imageBytes);
 
-        NetworkResponse response = await netWorkCaller.postRequestWithImage(
+        NetworkResponse response = await netWorkCaller.postRequest(
           'http://192.168.0.102/al_wahada/signInwithgoogle',
           {
             'full_name': user?.displayName,

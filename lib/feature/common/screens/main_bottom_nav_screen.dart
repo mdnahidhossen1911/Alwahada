@@ -1,5 +1,6 @@
 import 'package:alwahda/feature/auth/ui/controller/auth_controller.dart';
-import 'package:alwahda/feature/home/screens/home_screen.dart';
+import 'package:alwahda/feature/auth/ui/controller/auth_controller.dart';
+import 'package:alwahda/feature/home/ui/screens/home_screen.dart';
 import 'package:alwahda/feature/notification/screens/notification_screen.dart';
 import 'package:alwahda/feature/profile/screens/profile_screen.dart';
 import 'package:alwahda/feature/search/screens/search_screen.dart';
@@ -18,8 +19,6 @@ class MainBottomNavScreen extends StatefulWidget {
 class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
   int _currentIndex = 0;
 
-  String? image;
-
   final List<Widget> _screens = [
     HomeScreen(),
     SearchScreen(),
@@ -28,20 +27,10 @@ class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
   ];
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    image = Get.find<AuthController>().userModel?.midImage;
-    print(image);
-
-  }
-
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(toolbarHeight: 0, forceMaterialTransparency: true),
-      body: IndexedStack(index: _currentIndex, children: _screens),
+      body: _screens[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         type: BottomNavigationBarType.fixed,
@@ -69,12 +58,16 @@ class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
               child: CircleAvatar(
                 radius: 10.5,
                 backgroundColor: Colors.white,
-                child: CircleAvatar(
-                  radius: 9.5,
-                  backgroundColor: Colors.grey.shade100,
-                  backgroundImage: NetworkImage(
-                    'http://192.168.0.102/al_wahada/$image',
-                  ),
+                child: GetBuilder<AuthController>(
+                  builder: (controller) {
+                    return CircleAvatar(
+                      radius: 9.5,
+                      backgroundColor: Colors.grey.shade100,
+                      backgroundImage: NetworkImage(
+                        'http://192.168.0.102/al_wahada/${controller.userModel?.midImage}',
+                      ),
+                    );
+                  }
                 ),
               ),
             ),

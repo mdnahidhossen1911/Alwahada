@@ -161,30 +161,38 @@ class _ProfileScreenState extends State<ProfileScreen>
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      RichText(
-                        text: TextSpan(
-                          style: GoogleFonts.inter(
-                            fontSize: 17,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w700,
-                          ),
-                          children: [
-                            TextSpan(text: "${userModel?.fullName}  "),
-                            WidgetSpan(
-                              child: Image.asset(
-                                AssetsPath.verifyWriter,
-                                width: 20,
+                      GetBuilder<AuthController>(
+                        builder: (controller) {
+                          return RichText(
+                            text: TextSpan(
+                              style: GoogleFonts.inter(
+                                fontSize: 17,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w700,
                               ),
+                              children: [
+                                TextSpan(text: "${controller.userModel?.fullName}  "),
+                                WidgetSpan(
+                                  child: Image.asset(
+                                    AssetsPath.verifyWriter,
+                                    width: 20,
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
+                          );
+                        }
                       ),
-                      Text(
-                        '@${userModel?.uid}',
-                        style: GoogleFonts.inter(
-                          fontSize: 12,
-                          color: Colors.grey,
-                        ),
+                      GetBuilder<AuthController>(
+                        builder: (controller) {
+                          return Text(
+                            '@${controller.userModel?.uid}',
+                            style: GoogleFonts.inter(
+                              fontSize: 12,
+                              color: Colors.grey,
+                            ),
+                          );
+                        }
                       ),
                       SizedBox(height: 6),
                       Row(
@@ -263,12 +271,16 @@ class _ProfileScreenState extends State<ProfileScreen>
               child: CircleAvatar(
                 radius: 56,
                 backgroundColor: Colors.white,
-                child: CircleAvatar(
-                  radius: 50,
-                  backgroundColor: Colors.grey.shade100,
-                  backgroundImage: NetworkImage(
-                    'http://192.168.0.102/al_wahada/${userModel?.highImage}',
-                  ),
+                child: GetBuilder<AuthController>(
+                  builder: (controller) {
+                    return CircleAvatar(
+                      radius: 50,
+                      backgroundColor: Colors.grey.shade100,
+                      backgroundImage: NetworkImage(
+                        'http://192.168.0.102/al_wahada/${controller.userModel?.highImage}',
+                      ),
+                    );
+                  }
                 ),
               ),
             ),

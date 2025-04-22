@@ -1,21 +1,22 @@
 import 'dart:convert';
 import 'package:alwahda/feature/auth/data/model/sign_in_user_model.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AuthController {
+class AuthController extends GetxController{
   String? uid;
   SignInUserModel? userModel;
 
   final String _uidKey = 'uidKey';
   final String _modelKey = 'modelKey';
 
-  Future<void> saveData(SignInUserModel userModel) async {
+  Future<void> saveData(SignInUserModel signInModel) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_uidKey, userModel.id ?? '');
-    await prefs.setString(_modelKey, jsonEncode(userModel));
-
-    uid = userModel.id;
-    this.userModel = userModel;
+    await prefs.setString(_uidKey, signInModel.id ?? '');
+    await prefs.setString(_modelKey, jsonEncode(signInModel));
+    uid = signInModel.uid;
+    userModel = SignInUserModel.fromJson(signInModel.toJson());
+    update();
   }
 
   Future<void> getData() async {
@@ -25,6 +26,7 @@ class AuthController {
       userModel = SignInUserModel.fromJson(jsonDecode(userDataModel));
       uid = userModel?.id;
     }
+    update();
   }
 
   Future<void> updateData(SignInUserModel userModel) async {
@@ -33,6 +35,7 @@ class AuthController {
     await prefs.setString(_modelKey, jsonEncode(userModel));
     uid = userModel.id;
     this.userModel = userModel;
+    update();
   }
 
   Future<bool> islogIn()async{
@@ -52,5 +55,6 @@ class AuthController {
     sharedPreferences.clear();
     uid = null;
     userModel = null;
+    update();
   }
 }

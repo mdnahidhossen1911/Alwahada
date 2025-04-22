@@ -1,4 +1,4 @@
-import 'package:alwahda/feature/home/widgets/post_card_widget.dart';
+import 'package:alwahda/feature/home/ui/widgets/post_card_widget.dart';
 import 'package:flutter/material.dart';
 
 class SearchPostSection extends StatefulWidget {

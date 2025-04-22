@@ -1,5 +1,5 @@
 import 'package:alwahda/app/assets_path.dart';
-import 'package:alwahda/feature/home/widgets/show_bottom_sheet_share_window.dart';
+import 'package:alwahda/feature/home/ui/widgets/show_bottom_sheet_share_window.dart';
 import 'package:alwahda/feature/post/widget/comment_widget.dart';
 import 'package:alwahda/feature/post/widget/like_comment_share_button.dart';
 import 'package:flutter/material.dart';
