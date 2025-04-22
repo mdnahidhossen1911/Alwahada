@@ -1,3 +1,4 @@
+import 'package:alwahda/app/urls.dart';
 import 'package:alwahda/core/network_caller/network_caller.dart';
 import 'package:alwahda/feature/home/data/model/post_model.dart';
 import 'package:get/get.dart';
@@ -16,7 +17,7 @@ class HomeGetDataController extends GetxController {
     bool isSuccess = false;
     _inProgress = true;
     update();
-    NetworkResponse response = await NetWorkCaller().getRequest('http://192.168.0.102/al_wahada/getPost');
+    NetworkResponse response = await NetWorkCaller().getRequest(Urls.getPost);
     if(response.statusCode ==200){
       isSuccess = true;
       _errorMessage = '';

@@ -2,8 +2,8 @@ import 'package:alwahda/app/assets_path.dart';
 import 'package:alwahda/feature/home/data/model/post_model.dart';
 import 'package:alwahda/feature/home/ui/widgets/show_bottom_sheet_share_window.dart';
 import 'package:alwahda/feature/home/ui/widgets/show_bottom_slider_comment_bar.dart';
-import 'package:alwahda/feature/post/screens/post_details_screen.dart';
-import 'package:alwahda/feature/post/widget/like_comment_share_button.dart';
+import 'package:alwahda/feature/post/ui/screens/post_details_screen.dart';
+import 'package:alwahda/feature/post/ui/widget/like_comment_share_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -36,7 +36,12 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                     BoxShadow(color: Colors.grey.shade400, blurRadius: 1),
                   ],
                   image: DecorationImage(
-                    image: AssetImage(AssetsPath.manAvater),
+                    image:
+                        widget.posts?.highImage != ''
+                            ? NetworkImage(
+                              'http://192.168.0.102/al_wahada/${widget.posts?.highImage}',
+                            )
+                            : AssetImage(AssetsPath.avater),
                   ),
                   borderRadius: BorderRadius.circular(40),
                   color: Colors.white,
@@ -48,14 +53,14 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.posts?.fullName??'',
+                      widget.posts?.fullName ?? '',
                       style: GoogleFonts.getFont(
                         'Inter',
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                     Text(
-                      widget.posts?.createdAt??'',
+                      widget.posts?.createdAt ?? '',
                       style: GoogleFonts.getFont(
                         'Inter',
                         fontSize: 12,
@@ -85,7 +90,7 @@ class _PostCardWidgetState extends State<PostCardWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  widget.posts?.title??"",
+                  widget.posts?.title ?? "",
                   style: GoogleFonts.getFont(
                     'Inter',
                     fontSize: 15,
@@ -93,19 +98,18 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                     height: 1.3,
                   ),
                 ),
-                if(widget.posts?.image != '')
-                  SizedBox(height: 8),
-                if(widget.posts?.image != '')
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Image.network(
-                    'http://192.168.0.102/al_wahada/${widget.posts?.image}',
+                SizedBox(height: 4),
+                if (widget.posts?.image != '') SizedBox(height: 4),
+                if (widget.posts?.image != '')
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.network(
+                      'http://192.168.0.102/al_wahada/${widget.posts?.image}',
+                    ),
                   ),
-                ),
-                if(widget.posts?.image != '')
-                  SizedBox(height: 12),
+                if (widget.posts?.image != '') SizedBox(height: 12),
                 Text(
-                  widget.posts?.content??"",
+                  widget.posts?.content ?? "",
                   maxLines: 4,
                   overflow: TextOverflow.ellipsis,
                   style: GoogleFonts.getFont(
@@ -120,7 +124,7 @@ class _PostCardWidgetState extends State<PostCardWidget> {
           ),
           SizedBox(height: 12),
           Text(
-            '${widget.posts?.totalLikes??0} Like . ${widget.posts?.totalComments??0} Comment . ${widget.posts?.totalComments??0} Share',
+            '${widget.posts?.totalLikes ?? 0} Like . ${widget.posts?.totalComments ?? 0} Comment . ${widget.posts?.totalShares ?? 0} Share',
             style: GoogleFonts.getFont(
               'Inter',
               fontSize: 12,
@@ -137,9 +141,10 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                   LikeCommentShareButton(
                     onTab: () {},
                     type: 'Like',
-                    icon: widget.posts?.isLiked ==true?
-                    Icon(Icons.favorite, color: Colors.red):
-                    Icon(Icons.favorite_border, color: Colors.black),
+                    icon:
+                        widget.posts?.isLiked == true
+                            ? Icon(Icons.favorite, color: Colors.red)
+                            : Icon(Icons.favorite_border, color: Colors.black),
                   ),
                   SizedBox(width: 24),
                   LikeCommentShareButton(
@@ -198,5 +203,4 @@ class _PostCardWidgetState extends State<PostCardWidget> {
       ),
     );
   }
-
 }

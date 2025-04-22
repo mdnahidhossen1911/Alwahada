@@ -1,7 +1,7 @@
 import 'package:alwahda/app/assets_path.dart';
 import 'package:alwahda/feature/home/ui/widgets/show_bottom_sheet_share_window.dart';
-import 'package:alwahda/feature/post/widget/comment_widget.dart';
-import 'package:alwahda/feature/post/widget/like_comment_share_button.dart';
+import 'package:alwahda/feature/post/ui/widget/comment_widget.dart';
+import 'package:alwahda/feature/post/ui/widget/like_comment_share_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -69,7 +69,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                 boxShadow: [
                   BoxShadow(color: Colors.grey.shade400, blurRadius: 1),
                 ],
-                image: DecorationImage(image: AssetImage(AssetsPath.manAvater)),
+                image: DecorationImage(image: AssetImage(AssetsPath.avater)),
                 borderRadius: BorderRadius.circular(40),
                 color: Colors.white,
               ),

@@ -13,7 +13,9 @@ class _SearchPostSectionState extends State<SearchPostSection> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0x35aeaeae),
-      body: ListView.builder(itemBuilder: (context, index) {
+      body: ListView.builder(
+        itemCount: 0,
+        itemBuilder: (context, index) {
         return PostCardWidget();
       },),
     );

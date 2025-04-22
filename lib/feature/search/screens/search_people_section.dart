@@ -18,7 +18,7 @@ class _SearchPeopleSectionState extends State<SearchPeopleSection> {
         return ListTile(
           contentPadding: EdgeInsets.symmetric(vertical: 2,horizontal: 14,),
           leading: CircleAvatar(
-            backgroundImage: AssetImage(AssetsPath.manAvater),
+            backgroundImage: AssetImage(AssetsPath.avater),
             backgroundColor: Colors.grey.shade100,
           ),
           title: Text('MD Nahid Hossen'),

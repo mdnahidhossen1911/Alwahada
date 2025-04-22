@@ -47,7 +47,7 @@ class _SettingScreenState extends State<SettingScreen> {
               leading: CircleAvatar(
                 radius: 22,
                 backgroundColor: Colors.grey.shade100,
-                backgroundImage: AssetImage(AssetsPath.manAvater),
+                backgroundImage: AssetImage(AssetsPath.avater),
               ),
               title: Text(
                 'MD Nahid Hossen',

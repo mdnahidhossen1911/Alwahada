@@ -1,7 +1,7 @@
 import 'package:alwahda/feature/home/ui/controller/home_get_data_controller.dart';
 import 'package:alwahda/feature/home/ui/widgets/home_share_knowlage_bar.dart';
 import 'package:alwahda/feature/home/ui/widgets/post_card_widget.dart';
-import 'package:alwahda/feature/post/screens/new_post_screen.dart';
+import 'package:alwahda/feature/post/ui/screens/new_post_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';

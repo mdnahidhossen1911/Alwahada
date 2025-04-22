@@ -27,9 +27,7 @@ class NetWorkCaller {
     try {
       Map<String, String> headers = {
         'content-type': 'application/json',
-        'auth_key': Get
-            .find<AuthController>()
-            .uid ?? '',
+        'auth_key': AuthController.uid??'',
       };
       _logger.i('URL: $url\nHeaders: $headers');
       Response response = await get(Uri.parse(url), headers: headers);
@@ -57,9 +55,7 @@ class NetWorkCaller {
     try {
       Map<String, String> headers = {
         'content-type': 'application/json',
-        'token': Get
-            .find<AuthController>()
-            .uid ?? '',
+        'auth_key': AuthController.uid??"",
       };
 
       _logger.i('URL: $url\nBody: $body');

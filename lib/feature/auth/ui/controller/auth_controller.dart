@@ -4,19 +4,19 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthController extends GetxController{
-  String? uid;
+  static String? uid;
   SignInUserModel? userModel;
 
   final String _uidKey = 'uidKey';
   final String _modelKey = 'modelKey';
 
   Future<void> saveData(SignInUserModel signInModel) async {
+    print(signInModel.uid);
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString(_uidKey, signInModel.id ?? '');
     await prefs.setString(_modelKey, jsonEncode(signInModel));
-    uid = signInModel.uid;
+    uid = signInModel.id;
     userModel = SignInUserModel.fromJson(signInModel.toJson());
-    update();
   }
 
   Future<void> getData() async {

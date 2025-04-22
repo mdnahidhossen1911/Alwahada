@@ -47,7 +47,7 @@ class _FollowersListScreenState extends State<FollowersListScreen> {
               child: ListTile(
                 contentPadding: EdgeInsets.symmetric(vertical: 2,horizontal: 16,),
                 leading: CircleAvatar(
-                  backgroundImage: AssetImage(AssetsPath.manAvater),
+                  backgroundImage: AssetImage(AssetsPath.avater),
                   backgroundColor: Colors.grey.shade100,
                 ),
                 title: Text('MD Nahid Hossen'),

@@ -43,7 +43,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 child: CircleAvatar(
                   radius: 62,
                   backgroundColor: Colors.grey.shade100,
-                  backgroundImage: AssetImage(AssetsPath.manAvater),
+                  backgroundImage: AssetImage(AssetsPath.avater),
                 ),
               ),
               SizedBox(height: 20),

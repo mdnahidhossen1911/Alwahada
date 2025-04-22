@@ -44,7 +44,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
               children: [
                 CircleAvatar(
                   backgroundColor: Colors.grey.shade100,
-                  backgroundImage: AssetImage(AssetsPath.manAvater),
+                  backgroundImage: AssetImage(AssetsPath.avater),
                 ),
                 SizedBox(width: 12),
                 Expanded(
@@ -99,7 +99,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
               children: [
                 CircleAvatar(
                   backgroundColor: Colors.grey.shade100,
-                  backgroundImage: AssetImage(AssetsPath.manAvater),
+                  backgroundImage: AssetImage(AssetsPath.avater),
                 ),
                 SizedBox(width: 12),
                 Expanded(
@@ -155,7 +155,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
               children: [
                 CircleAvatar(
                   backgroundColor: Colors.grey.shade100,
-                  backgroundImage: AssetImage(AssetsPath.manAvater),
+                  backgroundImage: AssetImage(AssetsPath.avater),
                 ),
                 SizedBox(width: 12),
                 Expanded(
@@ -210,7 +210,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
               children: [
                 CircleAvatar(
                   backgroundColor: Colors.grey.shade100,
-                  backgroundImage: AssetImage(AssetsPath.manAvater),
+                  backgroundImage: AssetImage(AssetsPath.avater),
                 ),
                 SizedBox(width: 12),
                 Expanded(
@@ -265,7 +265,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
               children: [
                 CircleAvatar(
                   backgroundColor: Colors.grey.shade100,
-                  backgroundImage: AssetImage(AssetsPath.manAvater),
+                  backgroundImage: AssetImage(AssetsPath.avater),
                 ),
                 SizedBox(width: 12),
                 Expanded(
@@ -320,7 +320,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
               children: [
                 CircleAvatar(
                   backgroundColor: Colors.grey.shade100,
-                  backgroundImage: AssetImage(AssetsPath.manAvater),
+                  backgroundImage: AssetImage(AssetsPath.avater),
                 ),
                 SizedBox(width: 12),
                 Expanded(

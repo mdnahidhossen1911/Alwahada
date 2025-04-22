@@ -43,6 +43,7 @@ dependencies:
   shared_preferences: ^2.5.3
   http: 
   get:
+  image_picker: ^1.1.2
 
 dev_dependencies:
   flutter_test:

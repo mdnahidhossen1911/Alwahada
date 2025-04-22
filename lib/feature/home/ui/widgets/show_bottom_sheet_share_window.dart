@@ -35,7 +35,7 @@ Future<dynamic> showBottomSheetShareWindow(BuildContext context) {
                             ),
                           ],
                           image: DecorationImage(
-                            image: AssetImage(AssetsPath.manAvater),
+                            image: AssetImage(AssetsPath.avater),
                           ),
                           borderRadius: BorderRadius.circular(40),
                           color: Colors.white,
@@ -116,7 +116,7 @@ Future<dynamic> showBottomSheetShareWindow(BuildContext context) {
                                   ),
                                 ],
                                 image: DecorationImage(
-                                  image: AssetImage(AssetsPath.manAvater),
+                                  image: AssetImage(AssetsPath.avater),
                                 ),
                                 borderRadius: BorderRadius.circular(40),
                                 color: Colors.white,
