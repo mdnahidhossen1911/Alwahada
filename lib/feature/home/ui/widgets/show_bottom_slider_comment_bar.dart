@@ -1,7 +1,12 @@
+import 'package:alwahda/core/show_snack_bar.dart';
+import 'package:alwahda/feature/post/ui/controller/post_comment_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-Future<dynamic> showBottomSheetCommentBar(BuildContext context) {
+TextEditingController commentTECotroller = TextEditingController();
+
+Future<dynamic> showBottomSheetCommentBar(BuildContext context,String pid) {
   return showModalBottomSheet(
     backgroundColor: Colors.white,
     isScrollControlled: true,
@@ -40,6 +45,7 @@ Future<dynamic> showBottomSheetCommentBar(BuildContext context) {
                       children: [
                         Expanded(
                           child: TextField(
+                            controller: commentTECotroller,
                             maxLines: 5,
                             decoration: InputDecoration(
                               hintText: 'Comment',
@@ -56,7 +62,9 @@ Future<dynamic> showBottomSheetCommentBar(BuildContext context) {
                           ),
                         ),
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            addComments(context,pid, commentTECotroller.text.trim());
+                          },
                           icon: Icon(Icons.send_rounded),
                         ),
                       ],
@@ -70,4 +78,15 @@ Future<dynamic> showBottomSheetCommentBar(BuildContext context) {
       );
     },
   );
+}
+
+Future<void> addComments(BuildContext context,String pid,String comment)async{
+  bool isSuccess = await Get.find<PostCommentController>().comments(pid, comment);
+  if(isSuccess){
+    Get.back();
+    showSnackBarMessage(context, 'Commented');
+    commentTECotroller.clear();
+  }else{
+    showSnackBarMessage(context, 'Comment false',true);
+  }
 }

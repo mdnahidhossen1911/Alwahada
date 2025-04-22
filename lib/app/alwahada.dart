@@ -12,7 +12,7 @@ class AlwahadaApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Al Wahada',
       debugShowCheckedModeBanner: false,
-      initialBinding: ControllerBingder(),
+      initialBinding: ControllerBinder(),
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
         appBarTheme: AppBarTheme(backgroundColor: Colors.white),

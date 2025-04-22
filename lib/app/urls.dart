@@ -4,4 +4,5 @@ class Urls {
   static String getPost = '$_baseUrl/getPost';
   static String createPost = '$_baseUrl/create_post';
   static String likeToggle = '$_baseUrl/liketoggle';
+  static String postComment = '$_baseUrl/postcomment';
 }

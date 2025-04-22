@@ -22,6 +22,7 @@ class PostCardWidget extends StatefulWidget {
 class _PostCardWidgetState extends State<PostCardWidget> {
   bool? isLiked = false;
   int? totalLike = 0;
+  int? totalComments = 0;
 
   @override
   void initState() {
@@ -29,6 +30,7 @@ class _PostCardWidgetState extends State<PostCardWidget> {
     super.initState();
     isLiked = widget.posts?.isLiked;
     totalLike = widget.posts?.totalLikes;
+    totalComments = widget.posts?.totalComments;
   }
 
   @override
@@ -138,7 +140,7 @@ class _PostCardWidgetState extends State<PostCardWidget> {
           ),
           SizedBox(height: 12),
           Text(
-            '${totalLike ?? 0} Like . ${widget.posts?.totalComments ?? 0} Comment . ${widget.posts?.totalShares ?? 0} Share',
+            '${totalLike ?? 0} Like . ${totalComments ?? 0} Comment . ${widget.posts?.totalShares ?? 0} Share',
             style: GoogleFonts.getFont(
               'Inter',
               fontSize: 12,
@@ -197,7 +199,7 @@ class _PostCardWidgetState extends State<PostCardWidget> {
           SizedBox(height: 14),
           GestureDetector(
             onTap: () {
-              showBottomSheetCommentBar(context);
+              showBottomSheetCommentBar(context,'${widget.posts?.pid??''}');
             },
             child: Container(
               height: 40,
