@@ -1,10 +1,13 @@
 import 'package:alwahda/app/assets_path.dart';
+import 'package:alwahda/core/show_snack_bar.dart';
 import 'package:alwahda/feature/home/data/model/post_model.dart';
 import 'package:alwahda/feature/home/ui/widgets/show_bottom_sheet_share_window.dart';
 import 'package:alwahda/feature/home/ui/widgets/show_bottom_slider_comment_bar.dart';
+import 'package:alwahda/feature/post/ui/controller/post_like_toggle_controller.dart';
 import 'package:alwahda/feature/post/ui/screens/post_details_screen.dart';
 import 'package:alwahda/feature/post/ui/widget/like_comment_share_button.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PostCardWidget extends StatefulWidget {
@@ -17,6 +20,17 @@ class PostCardWidget extends StatefulWidget {
 }
 
 class _PostCardWidgetState extends State<PostCardWidget> {
+  bool? isLiked = false;
+  int? totalLike = 0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    isLiked = widget.posts?.isLiked;
+    totalLike = widget.posts?.totalLikes;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -124,7 +138,7 @@ class _PostCardWidgetState extends State<PostCardWidget> {
           ),
           SizedBox(height: 12),
           Text(
-            '${widget.posts?.totalLikes ?? 0} Like . ${widget.posts?.totalComments ?? 0} Comment . ${widget.posts?.totalShares ?? 0} Share',
+            '${totalLike ?? 0} Like . ${widget.posts?.totalComments ?? 0} Comment . ${widget.posts?.totalShares ?? 0} Share',
             style: GoogleFonts.getFont(
               'Inter',
               fontSize: 12,
@@ -139,10 +153,20 @@ class _PostCardWidgetState extends State<PostCardWidget> {
               Row(
                 children: [
                   LikeCommentShareButton(
-                    onTab: () {},
+                    onTab: () {
+                      if (isLiked == true) {
+                        isLiked = false;
+                        totalLike = totalLike! - 1;
+                      } else {
+                        isLiked = true;
+                        totalLike = totalLike! + 1;
+                      }
+                      setState(() {});
+                      likeToggle();
+                    },
                     type: 'Like',
                     icon:
-                        widget.posts?.isLiked == true
+                        isLiked == true
                             ? Icon(Icons.favorite, color: Colors.red)
                             : Icon(Icons.favorite_border, color: Colors.black),
                   ),
@@ -202,5 +226,11 @@ class _PostCardWidgetState extends State<PostCardWidget> {
         ],
       ),
     );
+  }
+  Future<void> likeToggle()async{
+    bool isSuccess = await Get.find<PostLikeToggleController>().likeToggle(widget.posts!.pid.toString());
+    if(isSuccess != true){
+      showSnackBarMessage(context, 'Network problem',true);
+    }
   }
 }
