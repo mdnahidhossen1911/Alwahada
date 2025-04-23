@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 TextEditingController commentTECotroller = TextEditingController();
 
-Future<dynamic> showBottomSheetCommentBar(BuildContext context,String pid) {
+Future<dynamic> showBottomSheetCommentBar(BuildContext context,String pid,String title) {
   return showModalBottomSheet(
     backgroundColor: Colors.white,
     isScrollControlled: true,

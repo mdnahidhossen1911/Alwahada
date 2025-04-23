@@ -1,4 +1,5 @@
 import 'package:alwahda/app/assets_path.dart';
+import 'package:alwahda/feature/home/data/model/post_details_model.dart';
 import 'package:alwahda/feature/home/ui/widgets/show_bottom_sheet_share_window.dart';
 import 'package:alwahda/feature/post/ui/widget/comment_widget.dart';
 import 'package:alwahda/feature/post/ui/widget/like_comment_share_button.dart';
@@ -6,9 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PostDetailsScreen extends StatefulWidget {
-  const PostDetailsScreen({super.key, this.commentScrolling});
+  const PostDetailsScreen({super.key, this.postDetailsModel});
 
-  final bool? commentScrolling;
+  final PostDetailsModel? postDetailsModel;
   static String name = '/PostDetails';
 
   @override
@@ -23,7 +24,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final context = _commentsKey.currentContext;
-      if (context != null && widget.commentScrolling == true) {
+      if (context != null && widget.postDetailsModel?.isScrolling == true) {
         Scrollable.ensureVisible(
           context,
           duration: Duration(milliseconds: 500),
@@ -80,14 +81,14 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Md Nahid Hossen',
+                    widget.postDetailsModel?.posts?.fullName??"",
                     style: GoogleFonts.getFont(
                       'Inter',
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                   Text(
-                    '23 sep 2024',
+                    widget.postDetailsModel?.posts?.createdAt??"",
                     style: GoogleFonts.getFont(
                       'Inter',
                       fontSize: 12,
@@ -106,7 +107,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
         ),
         SizedBox(height: 4),
         Text(
-          'Al-Aqsa Mosque is one of the holiest sites in Islam.',
+          widget.postDetailsModel?.posts?.title??"",
           style: GoogleFonts.getFont(
             'Inter',
             fontSize: 15,
@@ -114,33 +115,17 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
             height: 1.3,
           ),
         ),
-        SizedBox(height: 8),
+        SizedBox(height: 4),
+        if(widget.postDetailsModel?.posts?.image !='')
         ClipRRect(
           borderRadius: BorderRadius.circular(8),
           child: Image.network(
-            'https://muslimhands.org.uk/_ui/images/d58861348753.png',
+            'http://localhost/al_wahada/${widget.postDetailsModel?.posts?.image}',
           ),
         ),
-        SizedBox(height: 12),
-        Text(
-          '''উদাহরণের ব্যাখ্যা:
-                
-                MarkdownEditorController: এই ক্লাসটি একটি TextEditingController ধারণ করে, যা এডিটর ট্যাবের টেক্সট ফিল্ডের সাথে সংযুক্ত থাকে।​
-                
-                PreviewTab: এই ক্লাসটি GetView থেকে উত্তরাধিকারী, এবং এটি MarkdownEditorController এর সাথে কাজ করে। এখানে Obx উইজেট ব্যবহার করা হয়েছে, যা GetX এর রিঅ্যাক্টিভ স্টেট ম্যানেজমেন্ট সিস্টেমের অংশ। এটি নিশ্চিত করে যে যখনই টেক্সট পরিবর্তিত হয়, প্রিভিউ স্বয়ংক্রিয়ভাবে আপডেট হয়।​
-                
-                MarkdownBody: এই উইজেটটি Markdown টেক্সটকে রেন্ডার করে প্রদর্শন করে। data প্রোপার্টিতে এডিটর থেকে প্রাপ্ত টেক্সট পাস করা হয়।​
-                
-                এইভাবে, প্রিভিউ ট্যাবটি এডিটর ট্যাবে লেখা Markdown টেক্সটের রিয়েল-টাইম রেন্ডারিং প্রদর্শন করে, যা ব্যবহারকারীদের তাদের কন্টেন্টের ফাইনাল আউটপুট কেমন হবে তা দেখতে সহায়তা করে।
-                উদাহরণের ব্যাখ্যা:
-                
-                MarkdownEditorController: এই ক্লাসটি একটি TextEditingController ধারণ করে, যা এডিটর ট্যাবের টেক্সট ফিল্ডের সাথে সংযুক্ত থাকে।​
-                
-                PreviewTab: এই ক্লাসটি GetView থেকে উত্তরাধিকারী, এবং এটি MarkdownEditorController এর সাথে কাজ করে। এখানে Obx উইজেট ব্যবহার করা হয়েছে, যা GetX এর রিঅ্যাক্টিভ স্টেট ম্যানেজমেন্ট সিস্টেমের অংশ। এটি নিশ্চিত করে যে যখনই টেক্সট পরিবর্তিত হয়, প্রিভিউ স্বয়ংক্রিয়ভাবে আপডেট হয়।​
-                
-                MarkdownBody: এই উইজেটটি Markdown টেক্সটকে রেন্ডার করে প্রদর্শন করে। data প্রোপার্টিতে এডিটর থেকে প্রাপ্ত টেক্সট পাস করা হয়।​
-                
-                এইভাবে, প্রিভিউ ট্যাবটি এডিটর ট্যাবে লেখা Markdown টেক্সটের রিয়েল-টাইম রেন্ডারিং প্রদর্শন করে, যা ব্যবহারকারীদের তাদের কন্টেন্টের ফাইনাল আউটপুট কেমন হবে তা দেখতে সহায়তা করে।''',
+        if(widget.postDetailsModel?.posts?.image !='')
+          SizedBox(height: 12),
+        Text(widget.postDetailsModel?.posts?.content??"",
           style: GoogleFonts.getFont(
             'Inter',
             fontSize: 14,
@@ -150,7 +135,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
         ),
         SizedBox(height: 12),
         Text(
-          '1 Like . 1 Comment . 1 Share',
+          '${widget.postDetailsModel?.posts?.totalLikes??0} Like . ${widget.postDetailsModel?.posts?.totalComments??0} Comment . ${widget.postDetailsModel?.posts?.totalShares??0} Share',
           style: GoogleFonts.getFont('Inter', fontSize: 12, color: Colors.grey),
         ),
         SizedBox(height: 10),
@@ -195,12 +180,14 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
           ),
         ),
         ListView.builder(
-          itemCount: 10,
+          itemCount: widget.postDetailsModel?.posts?.comments?.length??0,
           shrinkWrap: true,
           padding: EdgeInsets.symmetric(vertical: 8),
           physics: NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) {
-            return CommentWidget();
+            return CommentWidget(
+              comments: widget.postDetailsModel?.posts!.comments?[index],
+            );
           },
         ),
       ],
@@ -263,7 +250,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
         children: [
           Expanded(
             child: Text(
-              'Al-Aqsa Mosque is one of the holiest sites in Islam.',
+              widget.postDetailsModel?.posts?.title??'',
               style: GoogleFonts.getFont(
                 'Inter',
                 fontSize: 17,

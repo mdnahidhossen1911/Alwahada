@@ -1,9 +1,11 @@
+import 'package:alwahda/feature/home/data/model/post_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CommentWidget extends StatelessWidget {
+  final Comments? comments;
   const CommentWidget({
-    super.key,
+    super.key,  required this.comments,
   });
 
   @override
@@ -21,11 +23,11 @@ class CommentWidget extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Text('MD. Nahid Hossen',style: GoogleFonts.getFont('Inter',fontSize: 13,fontWeight: FontWeight.w600,),),
-                    Text('  • 23 Mar',style: GoogleFonts.getFont('Inter',fontSize: 11,),),
+                    Text(comments?.name??'',style: GoogleFonts.getFont('Inter',fontSize: 13,fontWeight: FontWeight.w600,),),
+                    Text('  • ${comments?.createdAt}',style: GoogleFonts.getFont('Inter',fontSize: 11,),),
                   ],
                 ),
-                Text('The mosque is significant not only for its religious importance but also for its historical and architectural value. ',style: GoogleFonts.getFont('Inter',fontSize: 13,),),
+                Text('${comments?.comment}',style: GoogleFonts.getFont('Inter',fontSize: 13,),),
               ],
             ),
           )

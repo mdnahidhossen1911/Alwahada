@@ -1,5 +1,6 @@
 import 'package:alwahda/app/assets_path.dart';
 import 'package:alwahda/core/show_snack_bar.dart';
+import 'package:alwahda/feature/home/data/model/post_details_model.dart';
 import 'package:alwahda/feature/home/data/model/post_model.dart';
 import 'package:alwahda/feature/home/ui/widgets/show_bottom_sheet_share_window.dart';
 import 'package:alwahda/feature/home/ui/widgets/show_bottom_slider_comment_bar.dart';
@@ -99,7 +100,10 @@ class _PostCardWidgetState extends State<PostCardWidget> {
               Navigator.pushNamed(
                 context,
                 PostDetailsScreen.name,
-                arguments: false,
+                arguments: PostDetailsModel(
+                  isScrolling: false,
+                  posts: widget.posts,
+                ),
               );
             },
             child: Column(
@@ -178,7 +182,10 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                       Navigator.pushNamed(
                         context,
                         PostDetailsScreen.name,
-                        arguments: true,
+                        arguments: PostDetailsModel(
+                          isScrolling: true,
+                          posts: widget.posts,
+                        ),
                       );
                     },
                     type: 'Comment',
@@ -199,7 +206,11 @@ class _PostCardWidgetState extends State<PostCardWidget> {
           SizedBox(height: 14),
           GestureDetector(
             onTap: () {
-              showBottomSheetCommentBar(context,'${widget.posts?.pid??''}');
+              showBottomSheetCommentBar(
+                context,
+                '${widget.posts?.pid ?? ''}',
+                widget.posts?.title ?? '',
+              );
             },
             child: Container(
               height: 40,
@@ -229,10 +240,13 @@ class _PostCardWidgetState extends State<PostCardWidget> {
       ),
     );
   }
-  Future<void> likeToggle()async{
-    bool isSuccess = await Get.find<PostLikeToggleController>().likeToggle(widget.posts!.pid.toString());
-    if(isSuccess != true){
-      showSnackBarMessage(context, 'Network problem',true);
+
+  Future<void> likeToggle() async {
+    bool isSuccess = await Get.find<PostLikeToggleController>().likeToggle(
+      widget.posts!.pid.toString(),
+    );
+    if (isSuccess != true) {
+      showSnackBarMessage(context, 'Network problem', true);
     }
   }
 }
