@@ -1,4 +1,6 @@
 import 'package:alwahda/app/assets_path.dart';
+import 'package:alwahda/feature/auth/ui/controller/auth_controller.dart';
+import 'package:alwahda/feature/auth/ui/screens/sign_in_with_google_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -89,7 +91,12 @@ class _SettingScreenState extends State<SettingScreen> {
               title: Text('Report Inbox'),
             ),
             ListTile(leading: Icon(CupertinoIcons.info), title: Text('About')),
-            ListTile(leading: Icon(Icons.logout), title: Text('LogOut')),
+            ListTile(
+                onTap: ()async {
+                  await AuthController.logOut();
+                  Navigator.popAndPushNamed(context, SignInWithGoogleScreen.name);
+                },
+                leading: Icon(Icons.logout), title: Text('LogOut')),
             Spacer(),
             Text(
               'alwahada',

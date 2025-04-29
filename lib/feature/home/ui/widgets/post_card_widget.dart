@@ -38,7 +38,7 @@ class _PostCardWidgetState extends State<PostCardWidget> {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(bottom: 5),
-      padding: EdgeInsets.all(14),
+      padding: EdgeInsets.only(top: 14,left: 14,right: 14,bottom: 12),
       color: Colors.white,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -156,42 +156,37 @@ class _PostCardWidgetState extends State<PostCardWidget> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                children: [
-                  LikeCommentShareButton(
-                    onTab: () {
-                      if (isLiked == true) {
-                        isLiked = false;
-                        totalLike = totalLike! - 1;
-                      } else {
-                        isLiked = true;
-                        totalLike = totalLike! + 1;
-                      }
-                      setState(() {});
-                      likeToggle();
-                    },
-                    type: 'Like',
-                    icon:
-                        isLiked == true
-                            ? Icon(Icons.favorite, color: Colors.red)
-                            : Icon(Icons.favorite_border, color: Colors.black),
-                  ),
-                  SizedBox(width: 24),
-                  LikeCommentShareButton(
-                    onTab: () {
-                      Navigator.pushNamed(
-                        context,
-                        PostDetailsScreen.name,
-                        arguments: PostDetailsModel(
-                          isScrolling: true,
-                          posts: widget.posts,
-                        ),
-                      );
-                    },
-                    type: 'Comment',
-                    icon: Icon(Icons.messenger_outline, color: Colors.black),
-                  ),
-                ],
+              LikeCommentShareButton(
+                onTab: () {
+                  if (isLiked == true) {
+                    isLiked = false;
+                    totalLike = totalLike! - 1;
+                  } else {
+                    isLiked = true;
+                    totalLike = totalLike! + 1;
+                  }
+                  setState(() {});
+                  likeToggle();
+                },
+                type: 'Like',
+                icon:
+                isLiked == true
+                    ? Icon(Icons.favorite, color: Colors.red)
+                    : Icon(Icons.favorite_border, color: Colors.black),
+              ),
+              LikeCommentShareButton(
+                onTab: () {
+                  Navigator.pushNamed(
+                    context,
+                    PostDetailsScreen.name,
+                    arguments: PostDetailsModel(
+                      isScrolling: true,
+                      posts: widget.posts,
+                    ),
+                  );
+                },
+                type: 'Comment',
+                icon: Icon(Icons.messenger_outline, color: Colors.black),
               ),
               LikeCommentShareButton(
                 onTab: () {
@@ -203,7 +198,7 @@ class _PostCardWidgetState extends State<PostCardWidget> {
             ],
           ),
           Divider(height: 1, color: Colors.grey.shade100),
-          SizedBox(height: 14),
+          SizedBox(height: 12),
           GestureDetector(
             onTap: () {
               showBottomSheetCommentBar(

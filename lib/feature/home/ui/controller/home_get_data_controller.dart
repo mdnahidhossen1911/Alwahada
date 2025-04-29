@@ -5,31 +5,57 @@ import 'package:get/get.dart';
 
 class HomeGetDataController extends GetxController {
   bool _inProgress = false;
-  bool get inProgress => _inProgress;
-
-  PostModel? _postModel;
-  List<Posts>? get postList => _postModel?.posts;
-
+  bool _paginationInProgress = false;
   String _errorMessage = '';
+  List<Posts>? _posts = [];
+  final int _getDataCount = 15;
+  int? _nextPage = 1;
+
+  bool get inProgress => _inProgress;
+  bool get paginationInProgress => _paginationInProgress;
+  List<Posts>? get postList => _posts;
   String get errorMessage => _errorMessage;
 
   Future<bool> homeAPi()async{
     bool isSuccess = false;
-    _inProgress = true;
+
+    if(_nextPage ==null || _nextPage ==0){
+      return false;
+    }
+    if(_paginationInProgress){
+      return true;
+    }
+    if(_nextPage !=null && _nextPage ==1){
+      _inProgress = true;
+    }else{
+      _paginationInProgress = true;
+    }
     update();
-    NetworkResponse response = await NetWorkCaller().getRequest(Urls.getPost);
+
+
+    NetworkResponse response = await NetWorkCaller().getRequest("${Urls.getPost}?page=$_nextPage&limit=$_getDataCount");
     if(response.statusCode ==200){
       isSuccess = true;
       _errorMessage = '';
-      _postModel = PostModel.fromJson(response.responseData!);
-      print(_postModel?.posts?.length);
+      _posts!.addAll((response.responseData!['posts'] as List)
+          .map((json) => Posts.fromJson(json))
+          .toList());
+      _nextPage = response.responseData!['next_page'];
     }else{
       _errorMessage = response.errorMessage;
       isSuccess = false;
     }
 
+    await Future.delayed(Duration(seconds: 2));
     _inProgress = false;
+    _paginationInProgress = false;
     update();
     return isSuccess;
+  }
+
+  void refrash(){
+    _nextPage = 1;
+    _posts!.clear();
+    homeAPi();
   }
 }

@@ -120,7 +120,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
         ClipRRect(
           borderRadius: BorderRadius.circular(8),
           child: Image.network(
-            'http://localhost/al_wahada/${widget.postDetailsModel?.posts?.image}',
+            'http://192.168.0.102/al_wahada/${widget.postDetailsModel?.posts?.image??''}',
           ),
         ),
         if(widget.postDetailsModel?.posts?.image !='')

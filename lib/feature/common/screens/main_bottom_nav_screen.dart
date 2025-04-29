@@ -1,3 +1,4 @@
+import 'package:alwahda/app/assets_path.dart';
 import 'package:alwahda/feature/auth/ui/controller/auth_controller.dart';
 import 'package:alwahda/feature/auth/ui/controller/auth_controller.dart';
 import 'package:alwahda/feature/home/ui/screens/home_screen.dart';
@@ -59,16 +60,10 @@ class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
               child: CircleAvatar(
                 radius: 10.5,
                 backgroundColor: Colors.white,
-                child: GetBuilder<AuthController>(
-                  builder: (controller) {
-                    return CircleAvatar(
-                      radius: 9.5,
-                      backgroundColor: Colors.grey.shade100,
-                      backgroundImage: NetworkImage(
-                        'http://192.168.0.102/al_wahada/${controller.userModel?.midImage}',
-                      ),
-                    );
-                  }
+                child: CircleAvatar(
+                  radius: 9.5,
+                  backgroundColor: Colors.grey.shade100,
+                  backgroundImage: AssetImage(AssetsPath.avater),
                 ),
               ),
             ),

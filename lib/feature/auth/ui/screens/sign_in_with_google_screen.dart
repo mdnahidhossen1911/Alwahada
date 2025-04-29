@@ -15,6 +15,9 @@ class SignInWithGoogleScreen extends StatefulWidget {
 }
 
 class _SignInWithGoogleScreenState extends State<SignInWithGoogleScreen> {
+  final GoogleSignInRequestController _googleSignInRequestController =
+      Get.find<GoogleSignInRequestController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,6 +35,17 @@ class _SignInWithGoogleScreenState extends State<SignInWithGoogleScreen> {
                 ),
               ),
             ),
+            GetBuilder<GoogleSignInRequestController>(
+              builder: (controller) {
+                if (controller.inProgress == true) {
+                  return Center(
+                    child: CircularProgressIndicator(color: Colors.black),
+                  );
+                } else {
+                  return SizedBox();
+                }
+              },
+            ),
             Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
@@ -48,7 +62,7 @@ class _SignInWithGoogleScreenState extends State<SignInWithGoogleScreen> {
                   ),
                   SizedBox(height: 24),
                   _buildSignInButton(),
-                  SizedBox(height: 24),
+                  SizedBox(height: 8),
                 ],
               ),
             ),

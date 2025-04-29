@@ -29,7 +29,6 @@ class _ProfileScreenState extends State<ProfileScreen>
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
-    userModel = Get.find<AuthController>().userModel;
   }
 
   @override
@@ -157,7 +156,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 16, left: 16, right: 148),
+                  padding: const EdgeInsets.only(top: 16, left: 16, right: 138),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -171,7 +170,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                                 fontWeight: FontWeight.w700,
                               ),
                               children: [
-                                TextSpan(text: "${controller.userModel?.fullName}  "),
+                                TextSpan(text: "working "),
                                 WidgetSpan(
                                   child: Image.asset(
                                     AssetsPath.verifyWriter,
@@ -186,7 +185,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                       GetBuilder<AuthController>(
                         builder: (controller) {
                           return Text(
-                            '@${controller.userModel?.uid}',
+                            '@working',
                             style: GoogleFonts.inter(
                               fontSize: 12,
                               color: Colors.grey,
@@ -276,9 +275,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                     return CircleAvatar(
                       radius: 50,
                       backgroundColor: Colors.grey.shade100,
-                      backgroundImage: NetworkImage(
-                        'http://192.168.0.102/al_wahada/${controller.userModel?.highImage}',
-                      ),
+                      backgroundImage: AssetImage(AssetsPath.avater),
                     );
                   }
                 ),

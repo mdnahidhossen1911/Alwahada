@@ -1,54 +1,50 @@
-import 'dart:convert';
-import 'package:alwahda/app/assets_path.dart';
 import 'package:alwahda/app/urls.dart';
 import 'package:alwahda/core/network_caller/network_caller.dart';
 import 'package:alwahda/feature/auth/data/model/sign_in_user_model.dart';
 import 'package:alwahda/feature/auth/ui/controller/auth_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logger/logger.dart';
 
-class GoogleSignInRequestController extends GetxController{
-
+class GoogleSignInRequestController extends GetxController {
   User? user;
+  bool _inProgress = false;
 
-  Future<bool> signIn()async{
+  bool get inProgress => _inProgress;
+
+  Future<bool> signIn() async {
     bool isSuccess = false;
+    _inProgress = true;
+    update();
     bool getData = await getGoogleUserdata();
-    if(getData){
+    if (getData) {
       final NetWorkCaller netWorkCaller = NetWorkCaller();
-      // Load image and convert to Base64
-      ByteData bytes = await rootBundle.load(AssetsPath.avater);
-      List<int> imageBytes = bytes.buffer.asUint8List();
-      String base64Image = base64Encode(imageBytes);
-
-        NetworkResponse response = await netWorkCaller.postRequest(Urls.signInWithGoogle,
-          {
-            'full_name': user?.displayName,
-            'gmail': user?.email,
-            'image':base64Image,
-          },
+      NetworkResponse response = await netWorkCaller.postRequest(
+        Urls.signInWithGoogle,
+        {
+          'full_name': user?.displayName,
+          'gmail': user?.email
+        },
+      );
+      if (response.isSuccess) {
+        isSuccess = true;
+        SignInUserModel userModel = SignInUserModel.fromJson(
+          response.responseData!['user'],
         );
-        if(response.isSuccess){
-          isSuccess = true;
-          SignInUserModel userModel = SignInUserModel.fromJson(response.responseData!['user']);
-          print(userModel.highImage);
-          Get.find<AuthController>().saveData(userModel);
-          String? image = Get.find<AuthController>().userModel?.midImage;
-          print(image);
-        }else{
-          isSuccess = false;
-          Logger().i(response.errorMessage);
-        }
+        await AuthController.saveData(userModel.id??'',userModel);
+      } else {
+        isSuccess = false;
+        Logger().i(response.errorMessage);
+      }
     }
+    _inProgress = false;
+    update();
     return isSuccess;
   }
 
-
-  Future<bool>getGoogleUserdata()async{
-     final logger = Logger();
+  Future<bool> getGoogleUserdata() async {
+    final logger = Logger();
 
     try {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
@@ -81,5 +77,4 @@ class GoogleSignInRequestController extends GetxController{
     }
     return true;
   }
-
 }

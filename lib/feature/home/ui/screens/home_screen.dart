@@ -14,11 +14,20 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final ScrollController _scrollController = ScrollController();
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getpostData();
+    getPostData();
+    _scrollController.addListener(paginationScroll);
+  }
+
+  void paginationScroll() {
+    if (_scrollController.position.extentAfter < 300) {
+      getPostData();
+    }
   }
 
   @override
@@ -28,41 +37,48 @@ class _HomeScreenState extends State<HomeScreen> {
       body: GetBuilder<HomeGetDataController>(
         builder: (controller) {
           if (controller.inProgress) {
-            return Center(child: CircularProgressIndicator());
+            return Center(
+              child: CircularProgressIndicator(color: Colors.black),
+            );
           }
           return RefreshIndicator(
             backgroundColor: Colors.white,
             color: Colors.black,
-            onRefresh: () {
-              return Future.delayed(Duration(seconds: 2), () {
-                getpostData();
-              });
+            onRefresh: () async {
+              Get.find<HomeGetDataController>().refrash();
             },
             child: SizedBox(
               height: double.maxFinite,
               width: double.maxFinite,
               child: ColoredBox(
                 color: Color(0x35aeaeae),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      HomeShareKnowlageBar(
+                child: CustomScrollView(
+                  controller: _scrollController,
+                  slivers: [
+                    SliverToBoxAdapter(
+                      child: HomeShareKnowlageBar(
                         ontab: () {
                           Navigator.pushNamed(context, NewPostScreen.name);
                         },
                       ),
-                      ListView.builder(
-                        itemCount: controller.postList?.length ?? 0,
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
+                    ),
+                    SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        childCount: controller.postList?.length ?? 0,
+                        (context, index) {
                           return PostCardWidget(
                             posts: controller.postList?[index],
                           );
                         },
                       ),
-                    ],
-                  ),
+                    ),
+                    if (controller.paginationInProgress)
+                      SliverToBoxAdapter(
+                        child: Center(
+                          child: CircularProgressIndicator(color: Colors.black),
+                        ),
+                      ),
+                  ],
                 ),
               ),
             ),
@@ -72,8 +88,8 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Future<void> getpostData() async {
-    bool isSuccess = await Get.find<HomeGetDataController>().homeAPi();
+  Future<void> getPostData() async {
+    await Get.find<HomeGetDataController>().homeAPi();
   }
 
   AppBar buildAppBar() {

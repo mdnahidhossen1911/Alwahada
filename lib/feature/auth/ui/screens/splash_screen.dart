@@ -25,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> moveNextScreen()async{
-    bool isLogin = await Get.find<AuthController>().islogIn();
+    bool isLogin = await AuthController.islogIn();
     await Future.delayed(Duration(seconds: 4));
     if(isLogin){
          Navigator.popAndPushNamed(context, MainBottomNavScreen.name);
