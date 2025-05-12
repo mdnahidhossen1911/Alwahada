@@ -2,6 +2,7 @@ import 'package:alwahda/app/urls.dart';
 import 'package:alwahda/core/network_caller/network_caller.dart';
 import 'package:alwahda/feature/home/data/model/post_model.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart';
 
 class HomeGetDataController extends GetxController {
   bool _inProgress = false;
@@ -46,12 +47,21 @@ class HomeGetDataController extends GetxController {
       isSuccess = false;
     }
 
-    await Future.delayed(Duration(seconds: 2));
     _inProgress = false;
     _paginationInProgress = false;
     update();
     return isSuccess;
   }
+
+  void likeToggleAndCountUpdate(Posts post,bool likeStatus){
+    post.updateLikeCount(likeStatus);
+    update();
+  }
+
+   Future<void> commentNumberUpdate(Posts post,int count)async{
+    await post.updateCommentCunt();
+    update();
+   }
 
   void refrash(){
     _nextPage = 1;

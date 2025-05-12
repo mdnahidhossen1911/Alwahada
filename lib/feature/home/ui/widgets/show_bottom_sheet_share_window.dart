@@ -1,9 +1,16 @@
 import 'package:alwahda/app/assets_path.dart';
+import 'package:alwahda/app/urls.dart';
+import 'package:alwahda/core/show_snack_bar.dart';
+import 'package:alwahda/feature/home/data/model/post_model.dart';
+import 'package:alwahda/feature/post/ui/controller/add_share_post_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-Future<dynamic> showBottomSheetShareWindow(BuildContext context) {
-  return showModalBottomSheet(
+TextEditingController _content = TextEditingController();
+
+Future showBottomSheetShareWindow(BuildContext context, Posts? posts) async {
+  showModalBottomSheet(
     backgroundColor: Colors.white,
     isScrollControlled: true,
     context: context,
@@ -54,7 +61,7 @@ Future<dynamic> showBottomSheetShareWindow(BuildContext context) {
                               ),
                             ),
                             Text(
-                              '23 sep 2024',
+                              'Share post',
                               style: GoogleFonts.getFont(
                                 'Inter',
                                 fontSize: 12,
@@ -66,7 +73,15 @@ Future<dynamic> showBottomSheetShareWindow(BuildContext context) {
                         ),
                       ),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          if(_content.text.isNotEmpty){
+                           await _addSharePost(
+                              context,
+                              posts!.pid.toString(),
+                              _content.text.trim(),
+                            );
+                          }
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.blueAccent,
                           elevation: 0,
@@ -81,6 +96,7 @@ Future<dynamic> showBottomSheetShareWindow(BuildContext context) {
                   TextField(
                     minLines: 1,
                     maxLines: 5,
+                    controller: _content,
                     decoration: InputDecoration(
                       hintText: 'Write Samthing.........',
                       hintStyle: TextStyle(color: Colors.grey.shade500),
@@ -102,6 +118,7 @@ Future<dynamic> showBottomSheetShareWindow(BuildContext context) {
                       border: Border.all(color: Colors.grey.shade300),
                     ),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
                           children: [
@@ -128,14 +145,14 @@ Future<dynamic> showBottomSheetShareWindow(BuildContext context) {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'Md Nahid Hossen',
+                                    posts?.fullName ?? '',
                                     style: GoogleFonts.getFont(
                                       'Inter',
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
                                   Text(
-                                    '23 sep 2024',
+                                    posts?.createdAt ?? '',
                                     style: GoogleFonts.getFont(
                                       'Inter',
                                       fontSize: 12,
@@ -150,9 +167,12 @@ Future<dynamic> showBottomSheetShareWindow(BuildContext context) {
                         ),
                         SizedBox(height: 4),
                         Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Al-Aqsa Mosque is one of the holiest sites in Islam.',
+                              posts?.title ?? '',
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                               style: GoogleFonts.getFont(
                                 'Inter',
                                 fontSize: 15,
@@ -161,15 +181,23 @@ Future<dynamic> showBottomSheetShareWindow(BuildContext context) {
                               ),
                             ),
                             SizedBox(height: 8),
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: Image.network(
-                                'https://muslimhands.org.uk/_ui/images/d58861348753.png',
+                            if (posts?.image != '') SizedBox(height: 4),
+                            if (posts?.image != '')
+                              AspectRatio(
+                                aspectRatio: 16 / 9,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: Image.network(
+                                    '${Urls.baseUrl}/${posts?.image}',
+                                    fit: BoxFit.fitWidth,
+                                  ),
+                                ),
                               ),
-                            ),
-                            SizedBox(height: 12),
+                            if (posts?.image != '') SizedBox(height: 12),
                             Text(
-                              'Al-Aqsa Mosque is one of the holiest sites in Islam, located in the Old City of Jerusalem. It is part of the larger Al-Haram al-Sharif (the Noble Sanctuary), which also includes the Dome of the Rock.',
+                              posts?.content ?? '',
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
                               style: GoogleFonts.getFont(
                                 'Inter',
                                 fontSize: 14,
@@ -190,4 +218,21 @@ Future<dynamic> showBottomSheetShareWindow(BuildContext context) {
       );
     },
   );
+}
+
+Future<void> _addSharePost(
+  BuildContext context,
+  String pid,
+  String content,
+) async {
+  bool isSuccess = await Get.find<AddSharePostController>().shared(
+    pid,
+    content,
+  );
+  if (isSuccess) {
+    Get.back();
+    showSnackBarMessage(context, 'Share post');
+  } else {
+    showSnackBarMessage(context, 'shared false', true);
+  }
 }

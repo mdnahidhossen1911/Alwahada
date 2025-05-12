@@ -44,6 +44,7 @@ dependencies:
   http: 
   get:
   image_picker: ^1.1.2
+  readmore: ^3.0.0
 
 dev_dependencies:
   flutter_test:

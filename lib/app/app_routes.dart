@@ -1,10 +1,7 @@
 import 'package:alwahda/feature/auth/ui/screens/sign_in_with_google_screen.dart';
 import 'package:alwahda/feature/auth/ui/screens/splash_screen.dart';
 import 'package:alwahda/feature/common/screens/main_bottom_nav_screen.dart';
-import 'package:alwahda/feature/home/data/model/post_details_model.dart';
-import 'package:alwahda/feature/home/data/model/post_model.dart';
 import 'package:alwahda/feature/post/ui/screens/new_post_screen.dart';
-import 'package:alwahda/feature/post/ui/screens/post_details_screen.dart';
 import 'package:alwahda/feature/profile/screens/followers_list_screen.dart';
 import 'package:alwahda/feature/profile/screens/following_list_screen.dart';
 import 'package:alwahda/feature/profile/screens/edit_profile_screen.dart';
@@ -22,9 +19,6 @@ class AppRoutes {
       screen = const MainBottomNavScreen();
     }else if (settings.name == NewPostScreen.name) {
       screen = const NewPostScreen();
-    }else if (settings.name == PostDetailsScreen.name) {
-      PostDetailsModel postDetailsModel = settings.arguments as PostDetailsModel;
-      screen =  PostDetailsScreen(postDetailsModel: postDetailsModel ,);
     }else if (settings.name == SettingScreen.name) {
       screen = const SettingScreen();
     }else if (settings.name == FollowersListScreen.name) {

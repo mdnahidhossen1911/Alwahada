@@ -1,6 +1,8 @@
 import 'package:alwahda/feature/home/ui/controller/home_get_data_controller.dart';
 import 'package:alwahda/feature/home/ui/widgets/home_share_knowlage_bar.dart';
 import 'package:alwahda/feature/home/ui/widgets/post_card_widget.dart';
+import 'package:alwahda/feature/home/ui/widgets/share_post_card_widget.dart';
+import 'package:alwahda/feature/post/ui/controller/post_like_toggle_controller.dart';
 import 'package:alwahda/feature/post/ui/screens/new_post_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -66,8 +68,44 @@ class _HomeScreenState extends State<HomeScreen> {
                       delegate: SliverChildBuilderDelegate(
                         childCount: controller.postList?.length ?? 0,
                         (context, index) {
+                          final currentPost = controller.postList![index];
+                          if (currentPost.isShare == true) {
+                            return SharePostCardWidget(
+                              posts: currentPost,
+                              likeToggle: (likeStatus) {
+                                Get.find<HomeGetDataController>()
+                                    .likeToggleAndCountUpdate(
+                                  currentPost,
+                                  likeStatus,
+                                );
+
+                                Get.find<PostLikeToggleController>().likeToggle(
+                                  currentPost.pid.toString(),
+                                );
+                              },
+                              commentCount: (count) {
+                                Get.find<HomeGetDataController>()
+                                    .commentNumberUpdate(currentPost, count);
+                              },
+                            );
+                          }
                           return PostCardWidget(
-                            posts: controller.postList?[index],
+                            posts: currentPost,
+                            likeToggle: (likeStatus) {
+                              Get.find<HomeGetDataController>()
+                                  .likeToggleAndCountUpdate(
+                                    currentPost,
+                                    likeStatus,
+                                  );
+
+                              Get.find<PostLikeToggleController>().likeToggle(
+                                currentPost.pid.toString(),
+                              );
+                            },
+                            commentCount: (count) {
+                              Get.find<HomeGetDataController>()
+                                  .commentNumberUpdate(currentPost, count);
+                            },
                           );
                         },
                       ),

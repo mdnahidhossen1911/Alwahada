@@ -16,7 +16,14 @@ class _SearchPostSectionState extends State<SearchPostSection> {
       body: ListView.builder(
         itemCount: 0,
         itemBuilder: (context, index) {
-        return PostCardWidget();
+        return PostCardWidget(
+          likeToggle: (likeStatus) {
+
+          },
+          commentCount: (count) {
+
+          },
+        );
       },),
     );
   }

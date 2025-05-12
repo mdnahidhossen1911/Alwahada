@@ -10,8 +10,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:readmore/readmore.dart';
 
-class PostCardWidget extends StatefulWidget {
-  const PostCardWidget({
+class SharePostCardWidget extends StatelessWidget {
+  SharePostCardWidget({
     super.key,
     this.posts,
     required this.likeToggle,
@@ -22,18 +22,7 @@ class PostCardWidget extends StatefulWidget {
   final Function(int count) commentCount;
   final Posts? posts;
 
-  @override
-  State<PostCardWidget> createState() => _PostCardWidgetState();
-}
-
-class _PostCardWidgetState extends State<PostCardWidget> {
-  TextEditingController commentTEController = TextEditingController();
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
+  final TextEditingController commentTEController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -55,9 +44,9 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                   ],
                   image: DecorationImage(
                     image:
-                        widget.posts?.highImage != ''
+                        posts?.highImage != ''
                             ? NetworkImage(
-                              '${Urls.baseUrl}/${widget.posts?.highImage}',
+                              '${Urls.baseUrl}/${posts?.highImage}',
                             )
                             : AssetImage(AssetsPath.avater),
                   ),
@@ -71,14 +60,14 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.posts?.fullName ?? '',
+                      posts?.fullName ?? '',
                       style: GoogleFonts.getFont(
                         'Inter',
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                     Text(
-                      widget.posts?.createdAt ?? '',
+                      posts?.createdAt ?? '',
                       style: GoogleFonts.getFont(
                         'Inter',
                         fontSize: 12,
@@ -95,44 +84,34 @@ class _PostCardWidgetState extends State<PostCardWidget> {
               ),
             ],
           ),
-          SizedBox(height: 4),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                widget.posts?.title ?? "",
-                style: GoogleFonts.getFont(
-                  'Inter',
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  height: 1.3,
-                ),
-              ),
               SizedBox(height: 4),
-              if (widget.posts?.image != '') SizedBox(height: 4),
-              if (widget.posts?.image != '')
+              if (posts?.image != '') SizedBox(height: 4),
+              if (posts?.image != '')
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
-                  child: Image.network(
-                    '${Urls.baseUrl}/${widget.posts?.image}',
-                  ),
+                  child: Image.network('${Urls.baseUrl}/${posts?.image}'),
                 ),
-              if (widget.posts?.image != '') SizedBox(height: 12),
+              if (posts?.image != '') SizedBox(height: 12),
               ReadMoreText(
-                widget.posts!.content ?? '',
+                posts!.content ?? '',
                 style: GoogleFonts.getFont('Inter', fontSize: 13, height: 1.3),
                 trimMode: TrimMode.Line,
                 trimLines: 4,
                 colorClickableText: Colors.grey,
                 trimCollapsedText: '...Show more',
                 trimExpandedText: '...Show less',
-                moreStyle: TextStyle(fontSize: 12, color: Colors.grey),
+                moreStyle: TextStyle(fontSize: 14, color: Colors.black),
               ),
+              SizedBox(height: 8),
+              _buildShareSection(),
             ],
           ),
-          SizedBox(height: 12),
+          SizedBox(height: 4),
           Text(
-            '${widget.posts?.totalLikes ?? 0} Like . ${widget.posts?.totalComments ?? 0} Comment . ${widget.posts?.totalShares ?? 0} Share',
+            '${posts?.totalLikes ?? 0} Like . ${posts?.totalComments ?? 0} Comment . ${posts?.totalShares ?? 0} Share',
             style: GoogleFonts.getFont(
               'Inter',
               fontSize: 12,
@@ -146,13 +125,11 @@ class _PostCardWidgetState extends State<PostCardWidget> {
             children: [
               LikeCommentShareButton(
                 onTab: () {
-                  widget.likeToggle(
-                    widget.posts!.isLiked == true ? false : true,
-                  );
+                  likeToggle(posts!.isLiked == true ? false : true);
                 },
                 type: 'Like',
                 icon:
-                    widget.posts?.isLiked == true
+                    posts?.isLiked == true
                         ? Icon(Icons.favorite, color: Colors.red)
                         : Icon(Icons.favorite_border, color: Colors.black),
               ),
@@ -163,7 +140,7 @@ class _PostCardWidgetState extends State<PostCardWidget> {
               ),
               LikeCommentShareButton(
                 onTab: () {
-                  showBottomSheetShareWindow(context,widget.posts);
+                  showBottomSheetShareWindow(context,posts);
                 },
                 type: 'Share',
                 icon: Icon(Icons.share, color: Colors.black),
@@ -174,11 +151,7 @@ class _PostCardWidgetState extends State<PostCardWidget> {
           SizedBox(height: 12),
           GestureDetector(
             onTap: () {
-              showBottomSheetCommentBar(
-                context,
-                widget.posts,
-                widget.posts?.title ?? '',
-              );
+              showBottomSheetCommentBar(context, posts, posts?.shareInfo?.content ?? '');
             },
             child: Container(
               height: 40,
@@ -203,6 +176,100 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                 ],
               ),
             ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container _buildShareSection() {
+    return Container(
+      margin: EdgeInsets.only(bottom: 5),
+      padding: EdgeInsets.only(top: 14, left: 14, right: 14, bottom: 14),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.grey.shade200),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                height: 35,
+                width: 35,
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(color: Colors.grey.shade400, blurRadius: 1),
+                  ],
+                  image: DecorationImage(
+                    image:
+                        posts?.shareInfo?.highImage != ''
+                            ? NetworkImage(
+                              '${Urls.baseUrl}/${posts?.shareInfo?.highImage}',
+                            )
+                            : AssetImage(AssetsPath.avater),
+                  ),
+                  borderRadius: BorderRadius.circular(40),
+                  color: Colors.white,
+                ),
+              ),
+              SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      posts?.shareInfo?.fullName ?? '',
+                      style: GoogleFonts.getFont(
+                        'Inter',
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    Text(
+                      posts?.shareInfo?.createdAt ?? 'no date',
+                      style: GoogleFonts.getFont(
+                        'Inter',
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff9997a5),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 4),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                posts?.shareInfo?.title ?? "",
+                style: GoogleFonts.getFont(
+                  'Inter',
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  height: 1.3,
+                ),
+              ),
+              SizedBox(height: 4),
+              if (posts?.shareInfo?.image != '') SizedBox(height: 4),
+              if (posts?.shareInfo?.image != '')
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.network(
+                    '${Urls.baseUrl}/${posts?.shareInfo?.image}',
+                  ),
+                ),
+              if (posts?.shareInfo?.image != '') SizedBox(height: 12),
+              Text(
+                posts?.shareInfo?.content ?? '',
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(fontSize: 12, color: Colors.grey),
+              ),
+            ],
           ),
         ],
       ),
@@ -234,7 +301,9 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      title,
+                      post?.content??'',
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
                       style: GoogleFonts.getFont(
                         'Inter',
                         fontSize: 16,
@@ -275,7 +344,8 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                               addComments(
                                 context,
                                 '${post?.pid}',
-                                commentTEController.text.trim());
+                                commentTEController.text.trim(),
+                              );
                             },
                             icon: Icon(Icons.send_rounded),
                           ),
@@ -295,7 +365,8 @@ class _PostCardWidgetState extends State<PostCardWidget> {
   Future<void> addComments(
     BuildContext context,
     String pid,
-    String comment,) async {
+    String comment,
+  ) async {
     bool isSuccess = await Get.find<PostCommentController>().comments(
       pid,
       comment,
@@ -303,7 +374,7 @@ class _PostCardWidgetState extends State<PostCardWidget> {
     if (isSuccess) {
       Get.back();
       showSnackBarMessage(context, 'Commented');
-      widget.commentCount(1);
+      commentCount(1);
       commentTEController.clear();
     } else {
       showSnackBarMessage(context, 'Comment false', true);
