@@ -9,7 +9,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 TextEditingController _content = TextEditingController();
 
-Future showBottomSheetShareWindow(BuildContext context, Posts? posts) async {
+Future<bool> showBottomSheetShareWindow(BuildContext context, Posts? posts) async {
+  bool isShare = false;
   showModalBottomSheet(
     backgroundColor: Colors.white,
     isScrollControlled: true,
@@ -75,7 +76,7 @@ Future showBottomSheetShareWindow(BuildContext context, Posts? posts) async {
                       ElevatedButton(
                         onPressed: () async {
                           if(_content.text.isNotEmpty){
-                           await _addSharePost(
+                          isShare =  await _addSharePost(
                               context,
                               posts!.pid.toString(),
                               _content.text.trim(),
@@ -218,9 +219,10 @@ Future showBottomSheetShareWindow(BuildContext context, Posts? posts) async {
       );
     },
   );
+  return isShare;
 }
 
-Future<void> _addSharePost(
+Future<bool> _addSharePost(
   BuildContext context,
   String pid,
   String content,
@@ -232,7 +234,9 @@ Future<void> _addSharePost(
   if (isSuccess) {
     Get.back();
     showSnackBarMessage(context, 'Share post');
+    return true;
   } else {
     showSnackBarMessage(context, 'shared false', true);
+    return false;
   }
 }

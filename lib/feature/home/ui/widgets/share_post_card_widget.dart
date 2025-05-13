@@ -42,14 +42,7 @@ class SharePostCardWidget extends StatelessWidget {
                   boxShadow: [
                     BoxShadow(color: Colors.grey.shade400, blurRadius: 1),
                   ],
-                  image: DecorationImage(
-                    image:
-                        posts?.highImage != ''
-                            ? NetworkImage(
-                              '${Urls.baseUrl}/${posts?.highImage}',
-                            )
-                            : AssetImage(AssetsPath.avater),
-                  ),
+
                   borderRadius: BorderRadius.circular(40),
                   color: Colors.white,
                 ),
@@ -202,14 +195,6 @@ class SharePostCardWidget extends StatelessWidget {
                   boxShadow: [
                     BoxShadow(color: Colors.grey.shade400, blurRadius: 1),
                   ],
-                  image: DecorationImage(
-                    image:
-                        posts?.shareInfo?.highImage != ''
-                            ? NetworkImage(
-                              '${Urls.baseUrl}/${posts?.shareInfo?.highImage}',
-                            )
-                            : AssetImage(AssetsPath.avater),
-                  ),
                   borderRadius: BorderRadius.circular(40),
                   color: Colors.white,
                 ),

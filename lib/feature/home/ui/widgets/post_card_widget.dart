@@ -53,14 +53,6 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                   boxShadow: [
                     BoxShadow(color: Colors.grey.shade400, blurRadius: 1),
                   ],
-                  image: DecorationImage(
-                    image:
-                        widget.posts?.highImage != ''
-                            ? NetworkImage(
-                              '${Urls.baseUrl}/${widget.posts?.highImage}',
-                            )
-                            : AssetImage(AssetsPath.avater),
-                  ),
                   borderRadius: BorderRadius.circular(40),
                   color: Colors.white,
                 ),
@@ -162,8 +154,11 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                 icon: Icon(Icons.messenger_outline, color: Colors.black),
               ),
               LikeCommentShareButton(
-                onTab: () {
-                  showBottomSheetShareWindow(context,widget.posts);
+                onTab: () async {
+                 bool isSuccess =  await showBottomSheetShareWindow(context,widget.posts);
+                 if(isSuccess){
+                   
+                 }
                 },
                 type: 'Share',
                 icon: Icon(Icons.share, color: Colors.black),
