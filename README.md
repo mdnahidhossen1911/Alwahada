@@ -3,7 +3,6 @@
 Al Wahada is an Islamic micro-blogging application designed for Muslims to share thoughts, Islamic content, and updates in a respectful environment. It fosters community engagement through likes, comments, and shares, promoting unity among users.
 
  __UI Design Completed.__<br>
- __It is currently running on localhost.__<br>
  __API integration work is in progress.__
 
 - State management (GetX)
