@@ -75,13 +75,11 @@ Future<bool> showBottomSheetShareWindow(BuildContext context, Posts? posts) asyn
                       ),
                       ElevatedButton(
                         onPressed: () async {
-                          if(_content.text.isNotEmpty){
                           isShare =  await _addSharePost(
                               context,
                               posts!.pid.toString(),
                               _content.text.trim(),
                             );
-                          }
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.blueAccent,
@@ -133,11 +131,17 @@ Future<bool> showBottomSheetShareWindow(BuildContext context, Posts? posts) asyn
                                     blurRadius: 1,
                                   ),
                                 ],
-                                image: DecorationImage(
-                                  image: AssetImage(AssetsPath.avater),
-                                ),
                                 borderRadius: BorderRadius.circular(40),
                                 color: Colors.white,
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(20),
+                                child: Image.network(
+                                  '${Urls.baseUrl}/${posts!.avater}',
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Image.asset(AssetsPath.avater);
+                                  },
+                                ),
                               ),
                             ),
                             SizedBox(width: 10),
@@ -146,14 +150,14 @@ Future<bool> showBottomSheetShareWindow(BuildContext context, Posts? posts) asyn
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    posts?.fullName ?? '',
+                                    posts.fullName ?? '',
                                     style: GoogleFonts.getFont(
                                       'Inter',
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
                                   Text(
-                                    posts?.createdAt ?? '',
+                                    posts.createdAt ?? '',
                                     style: GoogleFonts.getFont(
                                       'Inter',
                                       fontSize: 12,
@@ -166,12 +170,12 @@ Future<bool> showBottomSheetShareWindow(BuildContext context, Posts? posts) asyn
                             ),
                           ],
                         ),
-                        SizedBox(height: 4),
+                        SizedBox(height: 6),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              posts?.title ?? '',
+                              posts.title ?? '',
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: GoogleFonts.getFont(
@@ -182,21 +186,21 @@ Future<bool> showBottomSheetShareWindow(BuildContext context, Posts? posts) asyn
                               ),
                             ),
                             SizedBox(height: 8),
-                            if (posts?.image != '') SizedBox(height: 4),
-                            if (posts?.image != '')
+                            if (posts.image != '') SizedBox(height: 4),
+                            if (posts.image != '')
                               AspectRatio(
                                 aspectRatio: 16 / 9,
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(8),
                                   child: Image.network(
-                                    '${Urls.baseUrl}/${posts?.image}',
+                                    '${Urls.baseUrl}/${posts.image}',
                                     fit: BoxFit.fitWidth,
                                   ),
                                 ),
                               ),
-                            if (posts?.image != '') SizedBox(height: 12),
+                            if (posts.image != '') SizedBox(height: 12),
                             Text(
-                              posts?.content ?? '',
+                              posts.content ?? '',
                               maxLines: 3,
                               overflow: TextOverflow.ellipsis,
                               style: GoogleFonts.getFont(

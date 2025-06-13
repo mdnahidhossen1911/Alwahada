@@ -53,8 +53,17 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                   boxShadow: [
                     BoxShadow(color: Colors.grey.shade400, blurRadius: 1),
                   ],
+                  color: Colors.grey.shade50,
                   borderRadius: BorderRadius.circular(40),
-                  color: Colors.white,
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image.network(
+                    '${Urls.baseUrl}/${widget.posts!.avater}',
+                    errorBuilder: (context, error, stackTrace) {
+                      return Image.asset(AssetsPath.avater);
+                    },
+                  ),
                 ),
               ),
               SizedBox(width: 10),
@@ -107,6 +116,9 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                   borderRadius: BorderRadius.circular(8),
                   child: Image.network(
                     '${Urls.baseUrl}/${widget.posts?.image}',
+                    errorBuilder: (context, error, stackTrace) {
+                      return Icon(Icons.error);
+                    },
                   ),
                 ),
               if (widget.posts?.image != '') SizedBox(height: 12),
@@ -155,10 +167,11 @@ class _PostCardWidgetState extends State<PostCardWidget> {
               ),
               LikeCommentShareButton(
                 onTab: () async {
-                 bool isSuccess =  await showBottomSheetShareWindow(context,widget.posts);
-                 if(isSuccess){
-                   
-                 }
+                  bool isSuccess = await showBottomSheetShareWindow(
+                    context,
+                    widget.posts,
+                  );
+                  if (isSuccess) {}
                 },
                 type: 'Share',
                 icon: Icon(Icons.share, color: Colors.black),
@@ -270,7 +283,8 @@ class _PostCardWidgetState extends State<PostCardWidget> {
                               addComments(
                                 context,
                                 '${post?.pid}',
-                                commentTEController.text.trim());
+                                commentTEController.text.trim(),
+                              );
                             },
                             icon: Icon(Icons.send_rounded),
                           ),
@@ -290,7 +304,8 @@ class _PostCardWidgetState extends State<PostCardWidget> {
   Future<void> addComments(
     BuildContext context,
     String pid,
-    String comment,) async {
+    String comment,
+  ) async {
     bool isSuccess = await Get.find<PostCommentController>().comments(
       pid,
       comment,

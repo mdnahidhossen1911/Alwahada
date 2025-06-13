@@ -57,7 +57,7 @@ class Posts {
   String? createdAt;
   String? username;
   String? fullName;
-  String? highImage;
+  String? avater;
   int? totalLikes;
   int? totalComments;
   int? totalShares;
@@ -75,7 +75,7 @@ class Posts {
         this.createdAt,
         this.username,
         this.fullName,
-        this.highImage,
+        this.avater,
         this.totalLikes,
         this.totalComments,
         this.totalShares,
@@ -93,7 +93,7 @@ class Posts {
     createdAt = json['created_at'];
     username = json['username'];
     fullName = json['full_name'];
-    highImage = json['high_image'];
+    avater = json['high_image'];
     totalLikes = json['total_likes'];
     totalComments = json['total_comments'];
     totalShares = json['total_shares'];
@@ -115,7 +115,7 @@ class Posts {
     data['created_at'] = this.createdAt;
     data['username'] = this.username;
     data['full_name'] = this.fullName;
-    data['high_image'] = this.highImage;
+    data['high_image'] = this.avater;
     data['total_likes'] = this.totalLikes;
     data['total_comments'] = this.totalComments;
     data['total_shares'] = this.totalShares;
@@ -144,7 +144,7 @@ class Posts {
 class ShareInfo {
   int? pid;
   String? fullName;
-  String? highImage;
+  String? avater;
   String? title;
   String? content;
   String? image;
@@ -153,7 +153,7 @@ class ShareInfo {
   ShareInfo(
       {this.pid,
         this.fullName,
-        this.highImage,
+        this.avater,
         this.title,
         this.content,
         this.image,
@@ -162,7 +162,7 @@ class ShareInfo {
   ShareInfo.fromJson(Map<String, dynamic> json) {
     pid = json['pid'] is String ? int.tryParse(json['pid']) : json['pid'];
     fullName = json['full_name'];
-    highImage = json['high_image'];
+    avater = json['high_image'];
     title = json['title'];
     content = json['content'];
     image = json['image'];
@@ -173,7 +173,7 @@ class ShareInfo {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['pid'] = this.pid;
     data['full_name'] = this.fullName;
-    data['high_image'] = this.highImage;
+    data['high_image'] = this.avater;
     data['title'] = this.title;
     data['content'] = this.content;
     data['image'] = this.image;

@@ -42,9 +42,17 @@ class SharePostCardWidget extends StatelessWidget {
                   boxShadow: [
                     BoxShadow(color: Colors.grey.shade400, blurRadius: 1),
                   ],
-
                   borderRadius: BorderRadius.circular(40),
                   color: Colors.white,
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image.network(
+                    '${Urls.baseUrl}/${posts!.avater}',
+                    errorBuilder: (context, error, stackTrace) {
+                      return Image.asset(AssetsPath.avater);
+                    },
+                  ),
                 ),
               ),
               SizedBox(width: 10),
@@ -88,6 +96,8 @@ class SharePostCardWidget extends StatelessWidget {
                   child: Image.network('${Urls.baseUrl}/${posts?.image}'),
                 ),
               if (posts?.image != '') SizedBox(height: 12),
+
+              if (posts?.content != '')
               ReadMoreText(
                 posts!.content ?? '',
                 style: GoogleFonts.getFont('Inter', fontSize: 13, height: 1.3),
@@ -133,7 +143,17 @@ class SharePostCardWidget extends StatelessWidget {
               ),
               LikeCommentShareButton(
                 onTab: () {
-                  showBottomSheetShareWindow(context,posts);
+                  showBottomSheetShareWindow(context,
+                      Posts(
+                        pid: posts!.shareInfo!.pid,
+                        fullName: posts!.shareInfo!.fullName,
+                        createdAt: posts!.shareInfo!.createdAt,
+                        title: posts!.shareInfo!.title,
+                        content: posts!.shareInfo!.content,
+                        image: posts!.shareInfo!.image,
+                        avater: posts!.shareInfo!.avater,
+                      ),
+                  );
                 },
                 type: 'Share',
                 icon: Icon(Icons.share, color: Colors.black),
@@ -144,7 +164,11 @@ class SharePostCardWidget extends StatelessWidget {
           SizedBox(height: 12),
           GestureDetector(
             onTap: () {
-              showBottomSheetCommentBar(context, posts, posts?.shareInfo?.content ?? '');
+              showBottomSheetCommentBar(
+                context,
+                posts,
+                posts?.shareInfo?.content ?? '',
+              );
             },
             child: Container(
               height: 40,
@@ -197,6 +221,15 @@ class SharePostCardWidget extends StatelessWidget {
                   ],
                   borderRadius: BorderRadius.circular(40),
                   color: Colors.white,
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image.network(
+                    '${Urls.baseUrl}/${posts!.shareInfo!.avater}',
+                    errorBuilder: (context, error, stackTrace) {
+                      return Image.asset(AssetsPath.avater);
+                    },
+                  ),
                 ),
               ),
               SizedBox(width: 10),
@@ -286,7 +319,7 @@ class SharePostCardWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      post?.content??'',
+                      post?.content ?? '',
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                       style: GoogleFonts.getFont(
